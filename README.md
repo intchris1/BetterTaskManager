@@ -1,19 +1,19 @@
 
 
-Task Manager
-Software requirements
+**Better Task Manager**
+
+_Software requirements:_
+~~~~
 JRE
-
 Java 8
-
 Maven 3.6.1
+~~~~
+_Developer:_
+`Kris`
 
-Developer
-Kris
+_email:_ `daphna11@mail.ru`
 
-email: daphna11@mail.ru
-
-Building:
+**Building:**
 mvn clean
 mvn install
 Running:
