@@ -34,7 +34,7 @@ public final class UserEditCommand extends AbstractCommand {
         else {
             serviceLocator.getTerminalService().showMessage("ENTER NEW NAME:");
             String newName = serviceLocator.getTerminalService().readLine();
-            if(serviceLocator.getUserService().findOneByName(newName) == null) {
+            if (serviceLocator.getUserService().findOneByName(newName) == null) {
                 user.setName(newName);
                 if (serviceLocator.getUserService().update(user) != null)
                     serviceLocator.getTerminalService().showMessage("USER WAS EDITED");

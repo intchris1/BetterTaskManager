@@ -3,12 +3,9 @@ package org.example.tm.command.project;
 
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.entity.Project;
-import org.example.tm.entity.Task;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import static org.example.tm.command.CommandInfo.PROJECT_OPEN_COMMAND;
 
@@ -38,11 +35,7 @@ public final class ProjectOpenCommand extends AbstractCommand {
         } else {
             serviceLocator.getTerminalService().showMessage(project.toString());
             serviceLocator.getTerminalService().showMessage("[TASK LIST FOR PROJECT]");
-            List<String> namesToPrint = new ArrayList<>();
-            for (Task value : serviceLocator.getTaskService().getByProjectId(project.getId()).values()) {
-                namesToPrint.add(value.getName());
-            }
-            printList(namesToPrint);
+            printList(serviceLocator.getTaskService().getByProjectId(project.getId()));
         }
     }
 }

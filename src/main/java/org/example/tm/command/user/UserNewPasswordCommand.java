@@ -32,7 +32,7 @@ public final class UserNewPasswordCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("ENTER NEW PASSWORD:");
         String newPassword = serviceLocator.getTerminalService().readLine();
         User user = serviceLocator.getUserService().findOneByName(oldName);
-        if(user != null) {
+        if (user != null) {
             user.setPassword(newPassword);
             if (serviceLocator.getUserService().editPassword(user) != null)
                 serviceLocator.getTerminalService().showMessage("USER PASSWORD WAS EDITED");

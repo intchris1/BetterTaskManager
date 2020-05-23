@@ -1,9 +1,7 @@
 package org.example.tm.command.user;
 
 import org.example.tm.command.AbstractCommand;
-import org.example.tm.entity.user.User;
 import org.example.tm.session.Session;
-import org.example.tm.util.Md5Custom;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;

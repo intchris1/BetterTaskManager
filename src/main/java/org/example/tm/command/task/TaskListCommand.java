@@ -28,10 +28,6 @@ public final class TaskListCommand extends AbstractCommand {
     @Override
     public void execute() {
         serviceLocator.getTerminalService().showMessage("[TASK LIST]");
-        List<String> namesToPrint = new ArrayList<>();
-        for (Task value : serviceLocator.getTaskService().findAll().values()) {
-            namesToPrint.add(value.getName());
-        }
-        printList(namesToPrint);
+        printList(serviceLocator.getTaskService().findAll());
     }
 }

@@ -5,7 +5,7 @@ import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Map;
+import java.util.List;
 
 public interface ITaskRepository extends IBaseRepository<Task> {
 
@@ -14,11 +14,6 @@ public interface ITaskRepository extends IBaseRepository<Task> {
     void removeByProjectId(@NotNull String projectId);
 
     @Nullable
-    Map<String, Task> getByProjectId(@NotNull String projectId);
+    List<Task> getByProjectId(@NotNull String projectId);
 
-    @NotNull
-    Map<String, Task> sortByDateStart(@NotNull final String currentUserId);
-
-    @NotNull
-    Map<String, Task> sortByDateFinish(@NotNull final String currentUserId);
 }

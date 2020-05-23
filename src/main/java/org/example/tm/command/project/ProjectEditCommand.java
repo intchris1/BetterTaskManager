@@ -33,7 +33,7 @@ public final class ProjectEditCommand extends AbstractCommand {
         else {
             serviceLocator.getTerminalService().showMessage("ENTER NEW NAME:");
             String newName = serviceLocator.getTerminalService().readLine();
-            if(serviceLocator.getProjectService().findOneByName(newName) == null) {
+            if (serviceLocator.getProjectService().findOneByName(newName) == null) {
                 project.setName(newName);
                 if (serviceLocator.getProjectService().update(project) != null)
                     serviceLocator.getTerminalService().showMessage("PROJECT WAS EDITED");

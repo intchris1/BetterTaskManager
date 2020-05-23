@@ -30,7 +30,8 @@ public final class TaskCreateCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("[TASK CREATE]");
         serviceLocator.getTerminalService().showMessage("ENTER TASK NAME:");
         String name = serviceLocator.getTerminalService().readLine();
-        if (serviceLocator.getTaskService().findOneByName(name) != null) serviceLocator.getTerminalService().showMessage("TASK ALREADY EXISTS");
+        if (serviceLocator.getTaskService().findOneByName(name) != null)
+            serviceLocator.getTerminalService().showMessage("TASK ALREADY EXISTS");
         else {
             serviceLocator.getTerminalService().showMessage("ENTER PROJECT NAME:");
             String projectName = serviceLocator.getTerminalService().readLine();
@@ -41,7 +42,8 @@ public final class TaskCreateCommand extends AbstractCommand {
                 task.setName(name);
                 task.setUserId(serviceLocator.getSessionService().getCurrentSession().getUser().getId());
                 task.setProjectId(project.getId());
-                if (serviceLocator.getTaskService().save(task) != null) serviceLocator.getTerminalService().showMessage("TASK WAS CREATED");
+                if (serviceLocator.getTaskService().save(task) != null)
+                    serviceLocator.getTerminalService().showMessage("TASK WAS CREATED");
             }
         }
     }

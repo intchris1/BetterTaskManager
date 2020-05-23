@@ -13,7 +13,6 @@ public class UserServiceImpl extends AbstractBaseServiceImpl<User, IUserReposito
 
     @Override
     public User editPassword(@NotNull User user) {
-        if(user.getName() == null) return null;
         baseRep.persist(user);
         return user;
     }

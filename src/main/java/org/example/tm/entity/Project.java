@@ -4,11 +4,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.example.tm.enumeration.Status;
-import org.example.tm.util.DateFormatter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -23,7 +21,7 @@ public class Project extends AbstractEntity {
     private String description = "";
 
     @NotNull
-    private String startDate = DateFormatter.convertDateToString(LocalDate.now());
+    private Date startDate = new Date();
 
     @Nullable
     private String endDate = null;

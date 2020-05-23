@@ -1,14 +1,11 @@
 package org.example.tm.command.project;
 
-import org.example.tm.baseApp.service.IProjectService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.entity.Project;
-import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
-import java.time.LocalDate;
 
 import static org.example.tm.command.CommandInfo.PROJECT_CREATE_COMMAND;
 

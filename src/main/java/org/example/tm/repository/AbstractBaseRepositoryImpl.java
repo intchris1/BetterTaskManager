@@ -6,6 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractBaseRepositoryImpl<T extends AbstractEntity> implements IBaseRepository<T> {
@@ -17,7 +18,7 @@ public abstract class AbstractBaseRepositoryImpl<T extends AbstractEntity> imple
 
     @NotNull
     @Override
-    public abstract Map<String, T> findAll();
+    public abstract List<T> findAll();
 
     @Nullable
     @Override

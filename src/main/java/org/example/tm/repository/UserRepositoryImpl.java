@@ -4,13 +4,15 @@ import org.example.tm.baseApp.repository.IUserRepository;
 import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public class UserRepositoryImpl extends AbstractBaseRepositoryImpl<User> implements IUserRepository {
 
     @Override
-    public @NotNull Map<String, User> findAll() {
-        return entities;
+    public @NotNull List<User> findAll() {
+        return new ArrayList<>(entities.values());
     }
 
     @Override

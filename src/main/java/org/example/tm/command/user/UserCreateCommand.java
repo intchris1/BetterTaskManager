@@ -2,8 +2,8 @@ package org.example.tm.command.user;
 
 
 import org.example.tm.command.AbstractCommand;
-import org.example.tm.enumeration.RoleType;
 import org.example.tm.entity.user.User;
+import org.example.tm.enumeration.RoleType;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -31,7 +31,8 @@ public final class UserCreateCommand extends AbstractCommand {
         serviceLocator.getTerminalService().showMessage("[USER CREATE]");
         serviceLocator.getTerminalService().showMessage("ENTER USER NAME:");
         String name = serviceLocator.getTerminalService().readLine();
-        if (serviceLocator.getUserService().findOneByName(name) != null) serviceLocator.getTerminalService().showMessage("USER ALREADY EXISTS");
+        if (serviceLocator.getUserService().findOneByName(name) != null)
+            serviceLocator.getTerminalService().showMessage("USER ALREADY EXISTS");
         else {
             serviceLocator.getTerminalService().showMessage("ENTER USER NAME:");
             String userName = serviceLocator.getTerminalService().readLine();
@@ -42,7 +43,8 @@ public final class UserCreateCommand extends AbstractCommand {
             user.setPassword(password);
             if (userName.equals("admin") && password.equals("12345")) user.setDisplayName(RoleType.ADMIN);
             else user.setDisplayName(RoleType.USER);
-            if (serviceLocator.getUserService().save(user) != null) serviceLocator.getTerminalService().showMessage("USER WAS CREATED");
+            if (serviceLocator.getUserService().save(user) != null)
+                serviceLocator.getTerminalService().showMessage("USER WAS CREATED");
         }
     }
 }

@@ -5,7 +5,8 @@ import org.example.tm.entity.Project;
 import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public final class ProjectRepositoryImpl extends AbstractBaseRepositoryImpl<Project> implements IProjectRepository {
@@ -21,12 +22,11 @@ public final class ProjectRepositoryImpl extends AbstractBaseRepositoryImpl<Proj
     }
 
     @Override
-    public @NotNull Map<String, Project> findAll() {
-        Map<String, Project> projectsForUser = new HashMap<>();
+    public @NotNull List<Project> findAll() {
+        List<Project> projectsForUser = new ArrayList<>();
         for (Map.Entry<String, Project> stringProjectEntry : entities.entrySet()) {
-            String key = stringProjectEntry.getKey();
             Project project = stringProjectEntry.getValue();
-            if (project.getUserId().equals(currentUser.getId())) projectsForUser.put(key, project);
+            if (project.getUserId().equals(currentUser.getId())) projectsForUser.add(project);
         }
         return projectsForUser;
     }
@@ -36,15 +36,4 @@ public final class ProjectRepositoryImpl extends AbstractBaseRepositoryImpl<Proj
         this.currentUser = user;
     }
 
-    @NotNull
-    @Override
-    public Map<String, Project> sortByDateStart() {
-        return null;
-    }
-
-    @NotNull
-    @Override
-    public Map<String, Project> sortByDateFinish() {
-        return null;
-    }
 }
