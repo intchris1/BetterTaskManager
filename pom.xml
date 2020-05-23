@@ -13,7 +13,7 @@
   <developers>
     <developer>
       <name>${developerName}</name>
-      <email>ovonely@gmail.com</email>
+      <email>daphna11@mail.ru</email>
     </developer>
   </developers>
 
@@ -21,21 +21,22 @@
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
-    <developerName>Kristina Sbitneva</developerName>
+    <developerName>Kris</developerName>
   </properties>
 
   <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.11</version>
-      <scope>test</scope>
-    </dependency>
 
     <dependency>
       <groupId>org.slf4j</groupId>
       <artifactId>slf4j-nop</artifactId>
       <version>1.7.21</version>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
     </dependency>
 
     <dependency>
@@ -95,7 +96,7 @@
               <mainClass>org.example.App</mainClass>
             </manifest>
             <manifestEntries>
-              <Implementation-Version>${buildNumber}</Implementation-Version>
+              <buildNumber>${buildNumber}</buildNumber>
               <developer>${developerName}</developer>
             </manifestEntries>
           </archive>
@@ -177,7 +178,7 @@
         <configuration>
           <artifactItems>
             <artifactItem>
-              <groupId>ru.naumkin.tm</groupId>
+              <groupId>org.example</groupId>
               <artifactId>task-manager</artifactId>
               <version>1.0.0</version>
               <type>jar</type>
@@ -192,6 +193,7 @@
           <overWriteSnapshots>true</overWriteSnapshots>
         </configuration>
       </plugin>
+
     </plugins>
   </build>
 
