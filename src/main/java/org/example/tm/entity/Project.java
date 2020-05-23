@@ -3,9 +3,12 @@ package org.example.tm.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.tm.enumeration.Status;
+import org.example.tm.util.DateFormatter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.time.LocalDate;
 import java.util.Date;
 
 @Getter
@@ -14,19 +17,19 @@ import java.util.Date;
 public class Project extends AbstractEntity {
 
     @NotNull
-    private String description = "";
-
-    @Nullable
-    private Date startDate = null;
-
-    @Nullable
-    private Date endDate = null;
-
-    @Nullable
-    private String userId = null;
+    private Status status = Status.PLANNED;
 
     @NotNull
-//    private Status status = Status.PLANNED;
+    private String description = "";
+
+    @NotNull
+    private String startDate = DateFormatter.convertDateToString(LocalDate.now());
+
+    @Nullable
+    private String endDate = null;
+
+    @NotNull
+    private String userId;
 
     @Override
     public String toString() {

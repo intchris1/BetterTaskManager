@@ -2,9 +2,7 @@ package org.example.tm.command;
 
 
 import org.example.tm.baseApp.ServiceLocator;
-import org.example.tm.entity.user.RoleType;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.IOException;
 import java.util.List;

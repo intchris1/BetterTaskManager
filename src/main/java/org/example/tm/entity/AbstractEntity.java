@@ -14,10 +14,10 @@ import org.jetbrains.annotations.NotNull;
 @NoArgsConstructor
 public abstract class AbstractEntity {
 
-    @NonNull
+    @NotNull
     private String id = UUID.randomUUID().toString();
 
-    @NonNull
+    @NotNull
     private String name;
 
 }

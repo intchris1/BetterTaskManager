@@ -2,7 +2,7 @@ package org.example.tm.command.user;
 
 
 import org.example.tm.command.AbstractCommand;
-import org.example.tm.entity.user.RoleType;
+import org.example.tm.enumeration.RoleType;
 import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
 

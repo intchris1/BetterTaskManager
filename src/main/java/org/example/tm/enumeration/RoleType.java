@@ -1,4 +1,4 @@
-package org.example.tm.entity.user;
+package org.example.tm.enumeration;
 
 public enum RoleType {
     ADMIN(true),
