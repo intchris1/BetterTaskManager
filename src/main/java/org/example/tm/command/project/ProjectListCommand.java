@@ -2,9 +2,12 @@ package org.example.tm.command.project;
 
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.entity.Project;
+import org.example.tm.util.ComparableEntityComparator;
 import org.jetbrains.annotations.NotNull;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
 
 import static org.example.tm.command.CommandInfo.PROJECT_LIST_COMMAND;
@@ -26,8 +29,25 @@ public final class ProjectListCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
-        serviceLocator.getTerminalService().showMessage("[PROJECT LIST]");
-        super.printList(serviceLocator.getProjectService().findAll());
+    public void execute() throws IOException {
+        serviceLocator.getTerminalService().showMessage("PLEASE ENTER SORT TYPE: \n" +
+                "(creation-date, start-date, end-date, status");
+        String sortType = serviceLocator.getTerminalService().readLine();
+        List<Project> projects = serviceLocator.getProjectService().findAll();
+        switch (sortType) {
+            case "start-date":
+                projects.sort(ComparableEntityComparator.comparatorStartDate);
+                break;
+            case "end-date":
+                projects.sort(ComparableEntityComparator.comparatorEndDate);
+                break;
+            case "status":
+                projects.sort(ComparableEntityComparator.comparatorStatus);
+                break;
+            default:
+                projects.sort(ComparableEntityComparator.comparatorCreationDate);
+        }
+        serviceLocator.getTerminalService().showMessage("[PROJECT LIST SORTED BY " + sortType.toUpperCase() + "]");
+        super.printList(projects);
     }
 }

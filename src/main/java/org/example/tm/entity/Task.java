@@ -3,16 +3,16 @@ package org.example.tm.entity;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import org.example.tm.baseApp.entity.ComparableEntity;
 import org.example.tm.enumeration.Status;
+import org.example.tm.util.DateFormatter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
-
-import java.util.Date;
 
 @Getter
 @Setter
 @NoArgsConstructor
-public class Task extends AbstractEntity {
+public class Task extends AbstractEntity implements ComparableEntity {
 
     @NotNull
     private Status status = Status.PLANNED;
@@ -21,10 +21,10 @@ public class Task extends AbstractEntity {
     private String description = "";
 
     @NotNull
-    private Date startDate = new Date();
+    private String startDate = DateFormatter.convertDateToString(getCreationDate());
 
     @Nullable
-    private Date endDate = null;
+    private String endDate = null;
 
     @NotNull
     private String projectId;
@@ -39,6 +39,7 @@ public class Task extends AbstractEntity {
                 "task id = " + getId() + '\n' +
                 "project id = " + projectId + '\n' +
                 "description = " + getDescription() + '\n' +
+                "creation date = " + getCreationDate() + '\n' +
                 "start date = " + startDate + '\n' +
                 "end date = " + endDate + '\n' +
                 "==============================";

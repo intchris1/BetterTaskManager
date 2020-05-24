@@ -2,19 +2,15 @@ package org.example.tm.util;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public final class DateFormatter {
     @NotNull
-    private static final DateTimeFormatter FORMATTER = DateTimeFormatter.ofPattern("dd.MM.yyyy");
+    private static final SimpleDateFormat FORMATTER = new SimpleDateFormat("dd.MM.yyyy");
 
-    public static String convertDateToString(@NotNull final LocalDate date) {
+    public static String convertDateToString(@NotNull final Date date) {
         return FORMATTER.format(date);
-    }
-
-    public static LocalDate convertStringToDate(@NotNull final String date) {
-        return LocalDate.parse(date, FORMATTER);
     }
 
 }

@@ -26,6 +26,7 @@ public class User extends AbstractEntity {
         return "==============================\n" +
                 "user name = " + getName() + '\n' +
                 "user id = " + getId() + '\n' +
+                "creation date = " + getCreationDate() + '\n' +
                 "==============================";
     }
 }
