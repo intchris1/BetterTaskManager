@@ -28,23 +28,23 @@ public final class UserCreateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws IOException {
-        serviceLocator.getTerminalService().showMessage("[USER CREATE]");
-        serviceLocator.getTerminalService().showMessage("ENTER USER NAME:");
-        String name = serviceLocator.getTerminalService().readLine();
+        terminalService.showMessage("[USER CREATE]");
+        terminalService.showMessage("ENTER USER NAME:");
+        String name = terminalService.readLine();
         if (serviceLocator.getUserService().findOneByName(name) != null)
-            serviceLocator.getTerminalService().showMessage("USER ALREADY EXISTS");
+            terminalService.showMessage("USER ALREADY EXISTS");
         else {
-            serviceLocator.getTerminalService().showMessage("ENTER USER NAME:");
-            String userName = serviceLocator.getTerminalService().readLine();
-            serviceLocator.getTerminalService().showMessage("ENTER PASSWORD:");
-            String password = serviceLocator.getTerminalService().readLine();
+            terminalService.showMessage("ENTER USER NAME:");
+            String userName = terminalService.readLine();
+            terminalService.showMessage("ENTER PASSWORD:");
+            String password = terminalService.readLine();
             User user = new User();
             user.setName(userName);
             user.setPassword(password);
             if (userName.equals("admin") && password.equals("12345")) user.setDisplayName(RoleType.ADMIN);
             else user.setDisplayName(RoleType.USER);
             if (serviceLocator.getUserService().save(user) != null)
-                serviceLocator.getTerminalService().showMessage("USER WAS CREATED");
+                terminalService.showMessage("USER WAS CREATED");
         }
     }
 }

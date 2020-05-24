@@ -30,9 +30,9 @@ public final class ProjectListCommand extends AbstractCommand {
 
     @Override
     public void execute() throws IOException {
-        serviceLocator.getTerminalService().showMessage("PLEASE ENTER SORT TYPE: \n" +
+        terminalService.showMessage("PLEASE ENTER SORT TYPE: \n" +
                 "(creation-date, start-date, end-date, status");
-        String sortType = serviceLocator.getTerminalService().readLine();
+        String sortType = terminalService.readLine();
         List<Project> projects = serviceLocator.getProjectService().findAll();
         switch (sortType) {
             case "start-date":
@@ -47,7 +47,7 @@ public final class ProjectListCommand extends AbstractCommand {
             default:
                 projects.sort(ComparableEntityComparator.comparatorCreationDate);
         }
-        serviceLocator.getTerminalService().showMessage("[PROJECT LIST SORTED BY " + sortType.toUpperCase() + "]");
-        super.printList(projects);
+        terminalService.showMessage("[PROJECT LIST SORTED BY " + sortType.toUpperCase() + "]");
+        terminalService.printList(projects);
     }
 }

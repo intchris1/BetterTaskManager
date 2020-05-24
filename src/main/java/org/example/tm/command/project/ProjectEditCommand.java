@@ -26,18 +26,18 @@ public final class ProjectEditCommand extends AbstractCommand {
 
     @Override
     public void execute() throws IOException {
-        serviceLocator.getTerminalService().showMessage("ENTER PROJECT NAME FOR EDITING:");
-        String oldName = serviceLocator.getTerminalService().readLine();
+        terminalService.showMessage("ENTER PROJECT NAME FOR EDITING:");
+        String oldName = terminalService.readLine();
         Project project = serviceLocator.getProjectService().findOneByName(oldName);
-        if (project == null) serviceLocator.getTerminalService().showMessage("PROJECT NOT FOUND OR NAME IS INVALID");
+        if (project == null) terminalService.showMessage("PROJECT NOT FOUND OR NAME IS INVALID");
         else {
-            serviceLocator.getTerminalService().showMessage("ENTER NEW NAME:");
-            String newName = serviceLocator.getTerminalService().readLine();
+            terminalService.showMessage("ENTER NEW NAME:");
+            String newName = terminalService.readLine();
             if (serviceLocator.getProjectService().findOneByName(newName) == null) {
                 project.setName(newName);
                 if (serviceLocator.getProjectService().update(project) != null)
-                    serviceLocator.getTerminalService().showMessage("PROJECT WAS EDITED");
-            } else serviceLocator.getTerminalService().showMessage("PROJECT ALREADY EXISTS");
+                    terminalService.showMessage("PROJECT WAS EDITED");
+            } else terminalService.showMessage("PROJECT ALREADY EXISTS");
         }
     }
 }

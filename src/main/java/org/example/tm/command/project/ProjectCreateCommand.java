@@ -27,15 +27,15 @@ public final class ProjectCreateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws IOException {
-        serviceLocator.getTerminalService().showMessage("[PROJECT CREATE]");
-        serviceLocator.getTerminalService().showMessage("ENTER PROJECT NAME:");
-        String name = serviceLocator.getTerminalService().readLine();
+        terminalService.showMessage("[PROJECT CREATE]");
+        terminalService.showMessage("ENTER PROJECT NAME:");
+        String name = terminalService.readLine();
         @Nullable final Project project = new Project();
         @NotNull final String userId = serviceLocator.getSessionService().getCurrentSession().getUser().getId();
         project.setUserId(userId);
         project.setName(name);
         if (serviceLocator.getProjectService().save(project) != null) {
-            serviceLocator.getTerminalService().showMessage("[OK]");
-        } else serviceLocator.getTerminalService().showMessage("[INVALID NAME OR PROJECT ALREADY EXISTS]");
+            terminalService.showMessage("[OK]");
+        } else terminalService.showMessage("[INVALID NAME OR PROJECT ALREADY EXISTS]");
     }
 }

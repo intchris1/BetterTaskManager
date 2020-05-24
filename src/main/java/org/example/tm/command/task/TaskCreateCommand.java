@@ -27,23 +27,23 @@ public final class TaskCreateCommand extends AbstractCommand {
 
     @Override
     public void execute() throws IOException {
-        serviceLocator.getTerminalService().showMessage("[TASK CREATE]");
-        serviceLocator.getTerminalService().showMessage("ENTER TASK NAME:");
-        String name = serviceLocator.getTerminalService().readLine();
+        terminalService.showMessage("[TASK CREATE]");
+        terminalService.showMessage("ENTER TASK NAME:");
+        String name = terminalService.readLine();
         if (serviceLocator.getTaskService().findOneByName(name) != null)
-            serviceLocator.getTerminalService().showMessage("TASK ALREADY EXISTS");
+            terminalService.showMessage("TASK ALREADY EXISTS");
         else {
-            serviceLocator.getTerminalService().showMessage("ENTER PROJECT NAME:");
-            String projectName = serviceLocator.getTerminalService().readLine();
+            terminalService.showMessage("ENTER PROJECT NAME:");
+            String projectName = terminalService.readLine();
             Project project = serviceLocator.getProjectService().findOneByName(projectName);
-            if (project == null) serviceLocator.getTerminalService().showMessage("PROJECT NOT FOUND");
+            if (project == null) terminalService.showMessage("PROJECT NOT FOUND");
             else {
                 Task task = new Task();
                 task.setName(name);
                 task.setUserId(serviceLocator.getSessionService().getCurrentSession().getUser().getId());
                 task.setProjectId(project.getId());
                 if (serviceLocator.getTaskService().save(task) != null)
-                    serviceLocator.getTerminalService().showMessage("TASK WAS CREATED");
+                    terminalService.showMessage("TASK WAS CREATED");
             }
         }
     }

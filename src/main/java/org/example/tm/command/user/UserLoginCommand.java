@@ -28,13 +28,13 @@ public final class UserLoginCommand extends AbstractCommand {
 
     @Override
     public void execute() throws IOException {
-        serviceLocator.getTerminalService().showMessage("ENTER USER NAME:");
-        String login = serviceLocator.getTerminalService().readLine();
-        serviceLocator.getTerminalService().showMessage("ENTER PASSWORD:");
-        String password = serviceLocator.getTerminalService().readLine();
+        terminalService.showMessage("ENTER USER NAME:");
+        String login = terminalService.readLine();
+        terminalService.showMessage("ENTER PASSWORD:");
+        String password = terminalService.readLine();
         Session session = serviceLocator.getSessionService().open(login, password);
         if (session != null) {
-            serviceLocator.getTerminalService().showMessage("SUCCESSFULLY LOGGED IN");
-        } else serviceLocator.getTerminalService().showMessage("USER NOT FOUND OR PASSWORD IS INVALID");
+            terminalService.showMessage("SUCCESSFULLY LOGGED IN");
+        } else terminalService.showMessage("USER NOT FOUND OR PASSWORD IS INVALID");
     }
 }

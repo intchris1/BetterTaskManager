@@ -23,6 +23,6 @@ public final class TaskClearCommand extends AbstractCommand {
     @Override
     public void execute() {
         serviceLocator.getTaskService().removeAll();
-        serviceLocator.getTerminalService().showMessage("ALL TASKS WERE REMOVED");
+        terminalService.showMessage("ALL TASKS WERE REMOVED");
     }
 }

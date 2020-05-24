@@ -15,4 +15,7 @@ public interface ITaskService extends IBaseService<Task> {
     List<Task> getByProjectId(String projectId);
 
     void removeByProjectId(String projectId);
+
+    @NotNull List<Task> findByPart(@NotNull String searchString);
+
 }

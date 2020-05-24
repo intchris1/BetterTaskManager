@@ -6,7 +6,6 @@ import org.example.tm.baseApp.service.ITaskService;
 import org.example.tm.entity.Task;
 import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
 import java.util.List;
 
@@ -23,13 +22,17 @@ public class TaskServiceImpl extends AbstractBaseServiceImpl<Task, ITaskReposito
 
     @Override
     public @NotNull List<Task> getByProjectId(@NotNull String projectId) {
-        if (projectId.isEmpty()) return null;
         return baseRep.getByProjectId(projectId);
     }
 
     @Override
     public void removeByProjectId(@NotNull String projectId) {
         baseRep.removeByProjectId(projectId);
+    }
+
+    @Override
+    public @NotNull List<Task> findByPart(@NotNull String searchString) {
+        return baseRep.findByPart(searchString);
     }
 }
 

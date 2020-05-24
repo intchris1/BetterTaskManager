@@ -2,6 +2,7 @@ package org.example.tm.repository;
 
 import org.example.tm.baseApp.repository.IProjectRepository;
 import org.example.tm.entity.Project;
+import org.example.tm.entity.Task;
 import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
 
@@ -34,6 +35,18 @@ public final class ProjectRepositoryImpl extends AbstractBaseRepositoryImpl<Proj
     @Override
     public void setUser(User user) {
         this.currentUser = user;
+    }
+
+    @Override
+    public @NotNull List<Project> findByPart(@NotNull String searchString) {
+        List<Project> projects = new ArrayList<>();
+        for (Map.Entry<String, Project> stringProjectEntry : entities.entrySet()) {
+            Project project = stringProjectEntry.getValue();
+            if(project.getName().contains(searchString) || project.getDescription().contains(searchString)) {
+                projects.add(project);
+            }
+        }
+        return projects;
     }
 
 }

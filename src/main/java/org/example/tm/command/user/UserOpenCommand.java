@@ -23,6 +23,6 @@ public final class UserOpenCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        serviceLocator.getTerminalService().showMessage(serviceLocator.getSessionService().getCurrentSession().getUser().toString());
+        terminalService.showMessage(serviceLocator.getSessionService().getCurrentSession().getUser().toString());
     }
 }

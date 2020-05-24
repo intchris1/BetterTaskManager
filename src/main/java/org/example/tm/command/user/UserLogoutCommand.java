@@ -25,6 +25,6 @@ public final class UserLogoutCommand extends AbstractCommand {
     @Override
     public void execute() {
         serviceLocator.getSessionService().signOut();
-        serviceLocator.getTerminalService().showMessage("LOGGED OUT");
+        terminalService.showMessage("LOGGED OUT");
     }
 }

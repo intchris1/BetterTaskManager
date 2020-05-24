@@ -27,15 +27,15 @@ public final class ProjectOpenCommand extends AbstractCommand {
 
     @Override
     public void execute() throws IOException {
-        serviceLocator.getTerminalService().showMessage("ENTER PROJECT NAME TO OPEN:");
-        String name = serviceLocator.getTerminalService().readLine();
+        terminalService.showMessage("ENTER PROJECT NAME TO OPEN:");
+        String name = terminalService.readLine();
         Project project = serviceLocator.getProjectService().findOneByName(name);
         if (project == null) {
-            serviceLocator.getTerminalService().showMessage("NO SUCH PROJECT");
+            terminalService.showMessage("NO SUCH PROJECT");
         } else {
-            serviceLocator.getTerminalService().showMessage(project.toString());
-            serviceLocator.getTerminalService().showMessage("[TASK LIST FOR PROJECT]");
-            printList(serviceLocator.getTaskService().getByProjectId(project.getId()));
+            terminalService.showMessage(project.toString());
+            terminalService.showMessage("[TASK LIST FOR PROJECT]");
+            terminalService.printList(serviceLocator.getTaskService().getByProjectId(project.getId()));
         }
     }
 }

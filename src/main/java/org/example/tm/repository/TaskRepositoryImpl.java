@@ -22,15 +22,26 @@ public class TaskRepositoryImpl extends AbstractBaseRepositoryImpl<Task> impleme
         entities.entrySet().removeIf(k -> k.getValue().getProjectId().equals(projectId));
     }
 
-    @Nullable
     @Override
-    public List<Task> getByProjectId(@NotNull String projectId) {
+    public @NotNull List<Task> getByProjectId(@NotNull String projectId) {
         List<Task> tasksForProject = new ArrayList<>();
         for (Map.Entry<String, Task> stringTaskEntry : entities.entrySet()) {
             Task task = stringTaskEntry.getValue();
             if (task.getProjectId().equals(projectId)) tasksForProject.add(task);
         }
         return tasksForProject;
+    }
+
+    @Override
+    public @NotNull List<Task> findByPart(@NotNull String searchString) {
+        List<Task> tasks = new ArrayList<>();
+        for (Map.Entry<String, Task> stringTaskEntry : entities.entrySet()) {
+            Task task = stringTaskEntry.getValue();
+            if(task.getName().contains(searchString) || task.getDescription().contains(searchString)) {
+                tasks.add(task);
+            }
+        }
+        return tasks;
     }
 
 
