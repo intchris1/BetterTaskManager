@@ -1,5 +1,7 @@
 package org.example;
 
+import org.example.tm.command.data.load.DataSerializationLoadCommand;
+import org.example.tm.command.data.save.DataSerializationSaveCommand;
 import org.example.tm.command.project.*;
 import org.example.tm.command.system.AboutCommand;
 import org.example.tm.command.system.ExitCommand;
@@ -15,6 +17,8 @@ public class App
         @NotNull final Bootstrap bootstrap = new Bootstrap();
         @NotNull final Class[] classes = new Class[] {
                 HelpCommand.class,
+                DataSerializationLoadCommand.class,
+                DataSerializationSaveCommand.class,
                 ProjectClearCommand.class,
                 ProjectCreateCommand.class,
                 ProjectListCommand.class,

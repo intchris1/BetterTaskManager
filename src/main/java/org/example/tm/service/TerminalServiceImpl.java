@@ -35,7 +35,7 @@ public final class TerminalServiceImpl implements ITerminalService {
         if (list.isEmpty()) System.out.println("THE LIST IS EMPTY");
         else {
             for (int i = 0; i < list.size(); i++) {
-                System.out.printf("%d. %s\n", i, list.get(i).getName());
+                System.out.printf("%d. %s\n", i+1, list.get(i).getName());
             }
         }
     }

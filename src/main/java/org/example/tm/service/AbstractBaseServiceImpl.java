@@ -11,7 +11,7 @@ import java.util.List;
 
 public abstract class AbstractBaseServiceImpl<T extends AbstractEntity, R extends IBaseRepository<T>> implements IBaseService<T> {
 
-    protected R baseRep;
+    protected final R baseRep;
 
     public AbstractBaseServiceImpl(R baseRep) {
         this.baseRep = baseRep;
@@ -31,23 +31,28 @@ public abstract class AbstractBaseServiceImpl<T extends AbstractEntity, R extend
 
     @Nullable
     @Override
-    public T save(@Nullable T t) {
-        if (t.getName().isEmpty() || t.getName() == null) return null;
+    public T save(@NotNull T t) {
+        if (t.getName().isEmpty()) return null;
         if (findOneByName(t.getName()) != null) return null;
         baseRep.persist(t);
         return t;
     }
 
+    @Override
+    public void save(@NotNull List<T> entities) {
+        baseRep.persist(entities);
+    }
+
     @Nullable
     @Override
-    public T update(@Nullable T t) {
-        if (t.getName().isEmpty() || t.getName() == null) return null;
+    public T update(@NotNull T t) {
+        if (t.getName().isEmpty()) return null;
         if (findOneByName(t.getName()) != null) return null;
         return baseRep.merge(t);
     }
 
     @Override
-    public void remove(@Nullable T t) {
+    public void remove(@NotNull T t) {
         baseRep.remove(t);
     }
 

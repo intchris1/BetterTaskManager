@@ -28,6 +28,10 @@ public final class UserLoginCommand extends AbstractCommand {
 
     @Override
     public void execute() throws IOException {
+        if(serviceLocator.getSessionService().getCurrentSession() != null) {
+            terminalService.showMessage("YOU NEED TO SIGN OUT FIRST");
+            return;
+        }
         terminalService.showMessage("ENTER USER NAME:");
         String login = terminalService.readLine();
         terminalService.showMessage("ENTER PASSWORD:");

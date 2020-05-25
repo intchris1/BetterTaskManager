@@ -1,6 +1,8 @@
 package org.example.tm.command;
 
 public enum CommandInfo {
+    DATA_SER_LOAD_COMMAND("data-ser-load", "Загрузка данных с помощью сериализации"),
+    DATA_SER_SAVE_COMMAND("data-ser-save", "Сохранение данных с помощью сериализации"),
     PROJECT_CLEAR_COMMAND("project-clear", "Очистить все проекты"),
     PROJECT_CREATE_COMMAND("project-create", "Создать проект"),
     PROJECT_EDIT_COMMAND("project-edit", "Редактировать проект"),

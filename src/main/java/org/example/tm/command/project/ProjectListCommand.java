@@ -6,8 +6,6 @@ import org.example.tm.util.ComparableEntityComparator;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Comparator;
 import java.util.List;
 
 import static org.example.tm.command.CommandInfo.PROJECT_LIST_COMMAND;
@@ -31,7 +29,7 @@ public final class ProjectListCommand extends AbstractCommand {
     @Override
     public void execute() throws IOException {
         terminalService.showMessage("PLEASE ENTER SORT TYPE: \n" +
-                "(creation-date, start-date, end-date, status");
+                "(creation-date, start-date, end-date, status)");
         String sortType = terminalService.readLine();
         List<Project> projects = serviceLocator.getProjectService().findAll();
         switch (sortType) {
@@ -45,6 +43,7 @@ public final class ProjectListCommand extends AbstractCommand {
                 projects.sort(ComparableEntityComparator.comparatorStatus);
                 break;
             default:
+                sortType = "creation-date";
                 projects.sort(ComparableEntityComparator.comparatorCreationDate);
         }
         terminalService.showMessage("[PROJECT LIST SORTED BY " + sortType.toUpperCase() + "]");

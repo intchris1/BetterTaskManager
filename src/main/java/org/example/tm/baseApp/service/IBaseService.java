@@ -14,12 +14,14 @@ public interface IBaseService<T extends AbstractEntity> {
     T findOneByName(@Nullable final String name);
 
     @Nullable
-    T save(@Nullable final T entity);
+    T save(@NotNull final T entity);
+
+    void save(@NotNull final List<T> entities);
 
     @Nullable
-    T update(@Nullable final T entity);
+    T update(@NotNull final T entity);
 
-    void remove(@Nullable final T entity);
+    void remove(@NotNull final T entity);
 
     void removeAll();
 }

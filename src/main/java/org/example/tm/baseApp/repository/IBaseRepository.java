@@ -13,8 +13,9 @@ public interface IBaseRepository<T extends AbstractEntity> {
     @Nullable
     T findOneByName(@NotNull final String name);
 
-    @Nullable
-    T persist(@NotNull final T entity);
+    void persist(@NotNull final T entity);
+
+    void persist(@NotNull final List<T> entities);
 
     @Nullable
     T merge(@NotNull final T entity);

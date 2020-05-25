@@ -24,11 +24,14 @@ public abstract class AbstractBaseRepositoryImpl<T extends AbstractEntity> imple
     @Override
     public abstract T findOneByName(@NotNull String name);
 
-    @Nullable
     @Override
-    public T persist(@NotNull T entity) {
+    public void persist(@NotNull T entity) {
         entities.put(entity.getId(), entity);
-        return entity;
+    }
+
+    @Override
+    public void persist(@NotNull List<T> list) {
+        list.forEach(entity -> entities.put(entity.getId(), entity));
     }
 
     @Nullable
@@ -46,4 +49,6 @@ public abstract class AbstractBaseRepositoryImpl<T extends AbstractEntity> imple
     public void removeAll() {
         entities.clear();
     }
+
+
 }
