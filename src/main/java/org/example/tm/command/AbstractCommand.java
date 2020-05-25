@@ -7,6 +7,7 @@ import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.enumeration.RoleType;
 import org.jetbrains.annotations.NotNull;
 
+import javax.xml.bind.JAXBException;
 import java.io.IOException;
 
 @Getter
@@ -34,6 +35,6 @@ public abstract class AbstractCommand {
     @NotNull
     public abstract String getDescription();
 
-    public abstract void execute() throws IOException, ClassNotFoundException;
+    public abstract void execute() throws IOException, ClassNotFoundException, JAXBException;
 
 }

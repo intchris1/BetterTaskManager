@@ -1,7 +1,7 @@
 package org.example;
 
-import org.example.tm.command.data.load.DataSerializationLoadCommand;
-import org.example.tm.command.data.save.DataSerializationSaveCommand;
+import org.example.tm.command.data.load.*;
+import org.example.tm.command.data.save.*;
 import org.example.tm.command.project.*;
 import org.example.tm.command.system.AboutCommand;
 import org.example.tm.command.system.ExitCommand;
@@ -18,7 +18,15 @@ public class App
         @NotNull final Class[] classes = new Class[] {
                 HelpCommand.class,
                 DataSerializationLoadCommand.class,
+                DataJaxbXmlLoadCommand.class,
+                DataJaxbJsonLoadCommand.class,
+                DataFasterxmlXmlLoadCommand.class,
+                DataFasterxmlJsonLoadCommand.class,
                 DataSerializationSaveCommand.class,
+                DataJaxbXmlSaveCommand.class,
+                DataJaxbJsonSaveCommand.class,
+                DataFasterxmlXmlSaveCommand.class,
+                DataFasterxmlJsonSaveCommand.class,
                 ProjectClearCommand.class,
                 ProjectCreateCommand.class,
                 ProjectListCommand.class,

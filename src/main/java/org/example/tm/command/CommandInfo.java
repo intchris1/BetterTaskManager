@@ -2,7 +2,15 @@ package org.example.tm.command;
 
 public enum CommandInfo {
     DATA_SER_LOAD_COMMAND("data-ser-load", "Загрузка данных с помощью сериализации"),
+    DATA_JAXB_XML_LOAD_COMMAND("data-jx-load", "Загрузка данных с помощью экстернализации и JAX-B в транспортном формате XML"),
+    DATA_JAXB_JSON_LOAD_COMMAND("data-js-load", "Загрузка данных с помощью экстернализации и JAX-B в транспортном формате JSON"),
+    DATA_FASTERXML_XML_LOAD_COMMAND("data-fasxml-load", "Загрузка данных с помощью экстернализации и FASTERXML в транспортном формате XML"),
+    DATA_FASTERXML_JSON_LOAD_COMMAND("data-fasjs-load", "Загрузка данных с помощью экстернализации и FASTERXML в транспортном формате JSON"),
     DATA_SER_SAVE_COMMAND("data-ser-save", "Сохранение данных с помощью сериализации"),
+    DATA_JAXB_XML_SAVE_COMMAND("data-jx-save", "Сохранение данных с помощью экстернализации и JAX-B в транспортном формате XML"),
+    DATA_JAXB_JSON_SAVE_COMMAND("data-js-save", "Сохранение данных с помощью экстернализации и JAX-B в транспортном формате JSON"),
+    DATA_FASTERXML_XML_SAVE_COMMAND("data-fasxml-save", "Сохранение данных с помощью экстернализации и FASTERXML в транспортном формате XML"),
+    DATA_FASTERXML_JSON_SAVE_COMMAND("data-fasxml-save", "Сохранение данных с помощью экстернализации и FASTERXML в транспортном формате JSON"),
     PROJECT_CLEAR_COMMAND("project-clear", "Очистить все проекты"),
     PROJECT_CREATE_COMMAND("project-create", "Создать проект"),
     PROJECT_EDIT_COMMAND("project-edit", "Редактировать проект"),

@@ -18,6 +18,7 @@ import org.example.tm.session.SessionServiceImpl;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.xml.bind.JAXBException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -90,7 +91,7 @@ public final class Bootstrap implements ServiceLocator {
     }
 
 
-    public void init(Class[] classes) throws IOException, ClassNotFoundException {
+    public void init(Class[] classes) throws IOException, ClassNotFoundException, JAXBException {
         initializeCommands(classes);
         initializeUsers();
         execute("help");
@@ -115,7 +116,7 @@ public final class Bootstrap implements ServiceLocator {
         }
     }
 
-    private void execute(@Nullable final String commandName) throws IOException, ClassNotFoundException {
+    private void execute(@Nullable final String commandName) throws IOException, ClassNotFoundException, JAXBException {
         if (commandName == null || commandName.isEmpty()) {
             return;
         }
