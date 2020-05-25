@@ -2,7 +2,6 @@ package org.example.tm.repository;
 
 import org.example.tm.baseApp.repository.IProjectRepository;
 import org.example.tm.entity.Project;
-import org.example.tm.entity.Task;
 import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
 

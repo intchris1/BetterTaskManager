@@ -9,8 +9,6 @@ import org.example.tm.util.DateFormatter;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Date;
-
 @Getter
 @Setter
 @NoArgsConstructor

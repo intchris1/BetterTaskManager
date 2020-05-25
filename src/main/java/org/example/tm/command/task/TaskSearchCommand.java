@@ -1,7 +1,6 @@
 package org.example.tm.command.task;
 
 import org.example.tm.command.AbstractCommand;
-import org.example.tm.entity.Project;
 import org.example.tm.entity.Task;
 import org.jetbrains.annotations.NotNull;
 
