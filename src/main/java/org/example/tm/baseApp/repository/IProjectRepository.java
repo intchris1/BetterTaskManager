@@ -12,4 +12,6 @@ public interface IProjectRepository extends IBaseRepository<Project> {
 
     @NotNull List<Project> findByPart(@NotNull String searchString);
 
+    @NotNull
+    List<Project> findByUserId();
 }

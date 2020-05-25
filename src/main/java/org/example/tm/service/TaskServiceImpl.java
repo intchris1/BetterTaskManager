@@ -34,6 +34,11 @@ public class TaskServiceImpl extends AbstractBaseServiceImpl<Task, ITaskReposito
     public @NotNull List<Task> findByPart(@NotNull String searchString) {
         return baseRep.findByPart(searchString);
     }
+
+    @Override
+    public @NotNull List<Task> findByUserId() {
+        return baseRep.findByUserId();
+    }
 }
 
 

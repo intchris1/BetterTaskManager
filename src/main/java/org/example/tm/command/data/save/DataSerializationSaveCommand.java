@@ -41,6 +41,7 @@ public class DataSerializationSaveCommand extends AbstractCommand {
         @NotNull final FileOutputStream fos = new FileOutputStream("data/data.bin");
         @NotNull final ObjectOutputStream oos = new ObjectOutputStream(fos);
         oos.writeObject(subjectAreaService);
+        oos.flush();
         oos.close();
         fos.close();
         terminalService.showMessage("DATA SAVED");

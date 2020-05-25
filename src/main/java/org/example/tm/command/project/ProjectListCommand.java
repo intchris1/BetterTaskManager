@@ -31,7 +31,7 @@ public final class ProjectListCommand extends AbstractCommand {
         terminalService.showMessage("PLEASE ENTER SORT TYPE: \n" +
                 "(creation-date, start-date, end-date, status)");
         String sortType = terminalService.readLine();
-        List<Project> projects = serviceLocator.getProjectService().findAll();
+        List<Project> projects = serviceLocator.getProjectService().findByUserId();
         switch (sortType) {
             case "start-date":
                 projects.sort(ComparableEntityComparator.comparatorStartDate);

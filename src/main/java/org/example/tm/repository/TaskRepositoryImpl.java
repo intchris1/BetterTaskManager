@@ -47,7 +47,7 @@ public class TaskRepositoryImpl extends AbstractBaseRepositoryImpl<Task> impleme
 
     @Nullable
     @Override
-    public @NotNull List<Task> findAll() {
+    public @NotNull List<Task> findByUserId() {
         List<Task> tasksForUser = new ArrayList<>();
         for (Map.Entry<String, Task> stringTaskEntry : entities.entrySet()) {
             Task task = stringTaskEntry.getValue();

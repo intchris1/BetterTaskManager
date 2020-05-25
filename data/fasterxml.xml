@@ -1,0 +1,38 @@
+<SubjectAreaServiceImpl>
+  <projects>
+    <project>
+      <id>9b979b00-b281-4fe0-9695-f9aa850025bf</id>
+      <name>FUKINPROJECTOFADMIN!!!</name>
+      <creationDate>2020-05-25 07:30 AM EET</creationDate>
+      <status>PLANNED</status>
+      <description></description>
+      <startDate>25.05.2020</startDate>
+      <endDate/>
+      <userId>84ec3dd2-a174-4912-a653-a5f3d12be987</userId>
+    </project>
+  </projects>
+  <tasks/>
+  <users>
+    <user>
+      <id>7534b737-ccf0-48de-a138-1016d815cd8a</id>
+      <name>Mo</name>
+      <creationDate>2020-05-25 07:27 AM EET</creationDate>
+      <password>202cb962ac59075b964b07152d234b70</password>
+      <displayName>USER</displayName>
+    </user>
+    <user>
+      <id>84ec3dd2-a174-4912-a653-a5f3d12be987</id>
+      <name>admin</name>
+      <creationDate>2020-05-25 07:27 AM EET</creationDate>
+      <password>827ccb0eea8a706c4c34a16891f84e7b</password>
+      <displayName>ADMIN</displayName>
+    </user>
+    <user>
+      <id>8fb56fc2-8aa2-400c-86f1-4b6155e926aa</id>
+      <name>Kate</name>
+      <creationDate>2020-05-25 07:27 AM EET</creationDate>
+      <password>202cb962ac59075b964b07152d234b70</password>
+      <displayName>USER</displayName>
+    </user>
+  </users>
+</SubjectAreaServiceImpl>

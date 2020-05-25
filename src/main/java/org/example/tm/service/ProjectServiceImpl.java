@@ -23,4 +23,8 @@ public class ProjectServiceImpl extends AbstractBaseServiceImpl<Project, IProjec
         return baseRep.findByPart(searchString);
     }
 
+    @Override
+    public @NotNull List<Project> findByUserId() {
+        return baseRep.findByUserId();
+    }
 }

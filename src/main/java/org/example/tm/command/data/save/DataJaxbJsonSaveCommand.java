@@ -48,7 +48,7 @@ public class DataJaxbJsonSaveCommand extends AbstractCommand {
         marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.marshal(subjectAreaService,file);
-        System.out.println("Data saved.");
+        terminalService.showMessage("DATA SAVED");
 
     }
 }

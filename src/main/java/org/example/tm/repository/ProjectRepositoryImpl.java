@@ -22,7 +22,7 @@ public final class ProjectRepositoryImpl extends AbstractBaseRepositoryImpl<Proj
     }
 
     @Override
-    public @NotNull List<Project> findAll() {
+    public @NotNull List<Project> findByUserId() {
         List<Project> projectsForUser = new ArrayList<>();
         for (Map.Entry<String, Project> stringProjectEntry : entities.entrySet()) {
             Project project = stringProjectEntry.getValue();

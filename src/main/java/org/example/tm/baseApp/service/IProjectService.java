@@ -11,4 +11,7 @@ public interface IProjectService extends IBaseService<Project> {
     void setUser(User user);
 
     @NotNull List<Project> findByPart(@NotNull String searchString);
+
+    @NotNull
+    List<Project> findByUserId();
 }

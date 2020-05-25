@@ -45,7 +45,7 @@ public class DataJaxbXmlSaveCommand extends AbstractCommand {
         @NotNull final Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
         marshaller.marshal(subjectAreaService,file);
-        System.out.println("Data saved.");
+        terminalService.showMessage("DATA SAVED");
 
     }
 }

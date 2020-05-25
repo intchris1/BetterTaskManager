@@ -1,0 +1,39 @@
+{
+   "SubjectAreaServiceImpl" : {
+      "projects" : {
+         "project" : [ {
+            "creationDate" : "2020-05-25T07:30:11.294+03:00",
+            "id" : "9b979b00-b281-4fe0-9695-f9aa850025bf",
+            "name" : "FUKINPROJECTOFADMIN!!!",
+            "description" : "",
+            "startDate" : "25.05.2020",
+            "status" : "PLANNED",
+            "userId" : "84ec3dd2-a174-4912-a653-a5f3d12be987"
+         } ]
+      },
+      "tasks" : {
+         "task" : [ ]
+      },
+      "users" : {
+         "user" : [ {
+            "creationDate" : "2020-05-25T07:27:33.916+03:00",
+            "id" : "7534b737-ccf0-48de-a138-1016d815cd8a",
+            "name" : "Mo",
+            "displayName" : "USER",
+            "password" : "202cb962ac59075b964b07152d234b70"
+         }, {
+            "creationDate" : "2020-05-25T07:27:33.898+03:00",
+            "id" : "84ec3dd2-a174-4912-a653-a5f3d12be987",
+            "name" : "admin",
+            "displayName" : "ADMIN",
+            "password" : "827ccb0eea8a706c4c34a16891f84e7b"
+         }, {
+            "creationDate" : "2020-05-25T07:27:33.916+03:00",
+            "id" : "8fb56fc2-8aa2-400c-86f1-4b6155e926aa",
+            "name" : "Kate",
+            "displayName" : "USER",
+            "password" : "202cb962ac59075b964b07152d234b70"
+         } ]
+      }
+   }
+}

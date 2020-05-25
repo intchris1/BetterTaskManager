@@ -18,4 +18,6 @@ public interface ITaskRepository extends IBaseRepository<Task> {
 
     @NotNull List<Task> findByPart(@NotNull String searchString);
 
+    @NotNull
+    List<Task> findByUserId();
 }

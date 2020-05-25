@@ -10,7 +10,7 @@ public enum CommandInfo {
     DATA_JAXB_XML_SAVE_COMMAND("data-jx-save", "Сохранение данных с помощью экстернализации и JAX-B в транспортном формате XML"),
     DATA_JAXB_JSON_SAVE_COMMAND("data-js-save", "Сохранение данных с помощью экстернализации и JAX-B в транспортном формате JSON"),
     DATA_FASTERXML_XML_SAVE_COMMAND("data-fasxml-save", "Сохранение данных с помощью экстернализации и FASTERXML в транспортном формате XML"),
-    DATA_FASTERXML_JSON_SAVE_COMMAND("data-fasxml-save", "Сохранение данных с помощью экстернализации и FASTERXML в транспортном формате JSON"),
+    DATA_FASTERXML_JSON_SAVE_COMMAND("data-fasjs-save", "Сохранение данных с помощью экстернализации и FASTERXML в транспортном формате JSON"),
     PROJECT_CLEAR_COMMAND("project-clear", "Очистить все проекты"),
     PROJECT_CREATE_COMMAND("project-create", "Создать проект"),
     PROJECT_EDIT_COMMAND("project-edit", "Редактировать проект"),

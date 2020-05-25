@@ -32,7 +32,7 @@ public final class TaskListCommand extends AbstractCommand {
                 "(creation-date, start-date, end-date, status)");
         terminalService.showMessage("[TASK LIST]");
         String sortType = terminalService.readLine();
-        List<Task> tasks = serviceLocator.getTaskService().findAll();
+        List<Task> tasks = serviceLocator.getTaskService().findByUserId();
         switch (sortType) {
             case "start-date":
                 tasks.sort(ComparableEntityComparator.comparatorStartDate);
