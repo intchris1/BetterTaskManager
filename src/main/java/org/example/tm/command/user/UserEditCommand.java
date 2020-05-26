@@ -27,18 +27,18 @@ public final class UserEditCommand extends AbstractCommand {
     @Override
     public void execute() throws IOException {
         String oldName = serviceLocator.getSessionService().getCurrentSession().getUser().getName();
-        serviceLocator.getTerminalService().showMessage("CURRENT USER NAME: " + oldName);
-        serviceLocator.getTerminalService().showMessage("ENTER NEW NAME:");
+        terminalService.showMessage("CURRENT USER NAME: " + oldName);
+        terminalService.showMessage("ENTER NEW NAME:");
         User user = serviceLocator.getUserService().findOneByName(oldName);
-        if (user == null) serviceLocator.getTerminalService().showMessage("USER NOT FOUND OR NAME IS INVALID");
+        if (user == null) terminalService.showMessage("USER NOT FOUND OR NAME IS INVALID");
         else {
-            serviceLocator.getTerminalService().showMessage("ENTER NEW NAME:");
-            String newName = serviceLocator.getTerminalService().readLine();
-            if(serviceLocator.getUserService().findOneByName(newName) == null) {
+            terminalService.showMessage("ENTER NEW NAME:");
+            String newName = terminalService.readLine();
+            if (serviceLocator.getUserService().findOneByName(newName) == null) {
                 user.setName(newName);
                 if (serviceLocator.getUserService().update(user) != null)
-                    serviceLocator.getTerminalService().showMessage("USER WAS EDITED");
-            } else serviceLocator.getTerminalService().showMessage("USER ALREADY EXISTS");
+                    terminalService.showMessage("USER WAS EDITED");
+            } else terminalService.showMessage("USER ALREADY EXISTS");
         }
     }
 }

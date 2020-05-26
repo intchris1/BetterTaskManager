@@ -1,6 +1,6 @@
 package org.example.tm.baseApp.service;
 
-import org.example.tm.command.AbstractCommand;
+import org.example.tm.entity.AbstractEntity;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -11,4 +11,7 @@ public interface ITerminalService {
 
     @NotNull
     String readLine() throws IOException;
+
+    void printList(List<? extends AbstractEntity> list);
+
 }

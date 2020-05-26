@@ -4,15 +4,14 @@ import org.example.tm.entity.Project;
 import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
+import java.util.List;
 
 public interface IProjectRepository extends IBaseRepository<Project> {
 
     void setUser(User user);
 
-    @NotNull
-    Map<String, Project> sortByDateStart();
+    @NotNull List<Project> findByPart(@NotNull String searchString);
 
     @NotNull
-    Map<String, Project> sortByDateFinish();
+    List<Project> findByUserId();
 }

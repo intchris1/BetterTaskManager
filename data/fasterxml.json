@@ -1,0 +1,32 @@
+{
+  "projectList" : [ {
+    "id" : "9b979b00-b281-4fe0-9695-f9aa850025bf",
+    "name" : "FUKINPROJECTOFADMIN!!!",
+    "creationDate" : "2020-05-25 07:30 AM EET",
+    "status" : "PLANNED",
+    "description" : "",
+    "startDate" : "25.05.2020",
+    "endDate" : null,
+    "userId" : "84ec3dd2-a174-4912-a653-a5f3d12be987"
+  } ],
+  "taskList" : [ ],
+  "userList" : [ {
+    "id" : "7534b737-ccf0-48de-a138-1016d815cd8a",
+    "name" : "Mo",
+    "creationDate" : "2020-05-25 07:27 AM EET",
+    "password" : "202cb962ac59075b964b07152d234b70",
+    "displayName" : "USER"
+  }, {
+    "id" : "84ec3dd2-a174-4912-a653-a5f3d12be987",
+    "name" : "admin",
+    "creationDate" : "2020-05-25 07:27 AM EET",
+    "password" : "827ccb0eea8a706c4c34a16891f84e7b",
+    "displayName" : "ADMIN"
+  }, {
+    "id" : "8fb56fc2-8aa2-400c-86f1-4b6155e926aa",
+    "name" : "Kate",
+    "creationDate" : "2020-05-25 07:27 AM EET",
+    "password" : "202cb962ac59075b964b07152d234b70",
+    "displayName" : "USER"
+  } ]
+}

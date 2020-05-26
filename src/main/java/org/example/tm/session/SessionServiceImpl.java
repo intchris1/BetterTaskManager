@@ -3,7 +3,7 @@ package org.example.tm.session;
 
 import org.example.tm.baseApp.ServiceLocator;
 import org.example.tm.entity.user.User;
-import org.example.tm.util.Md5Custom;
+import org.example.tm.util.PasswordHashUtil;
 
 public class SessionServiceImpl implements SessionService {
     private final ServiceLocator serviceLocator;
@@ -33,7 +33,7 @@ public class SessionServiceImpl implements SessionService {
         if (password == null || password.isEmpty()) return false;
         final User user = serviceLocator.getUserService().findOneByName(login);
         if (user == null) return false;
-        final String passwordHash = Md5Custom.md5Custom(password);
+        final String passwordHash = PasswordHashUtil.md5(password);
         if (passwordHash == null || passwordHash.isEmpty()) return false;
         return passwordHash.equals(user.getPassword());
     }
@@ -43,6 +43,7 @@ public class SessionServiceImpl implements SessionService {
         this.currentSession = null;
         serviceLocator.getTaskService().setUser(null);
         serviceLocator.getProjectService().setUser(null);
+
     }
 
     @Override

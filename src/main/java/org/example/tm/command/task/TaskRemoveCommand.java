@@ -26,13 +26,13 @@ public final class TaskRemoveCommand extends AbstractCommand {
 
     @Override
     public void execute() throws IOException {
-        serviceLocator.getTerminalService().showMessage("ENTER TASK NAME TO DELETE");
-        String name = serviceLocator.getTerminalService().readLine();
+        terminalService.showMessage("ENTER TASK NAME TO DELETE");
+        String name = terminalService.readLine();
         Task task = serviceLocator.getTaskService().findOneByName(name);
-        if (task == null) serviceLocator.getTerminalService().showMessage("NO SUCH TASK");
+        if (task == null) terminalService.showMessage("NO SUCH TASK");
         else {
             serviceLocator.getTaskService().remove(task);
-            serviceLocator.getTerminalService().showMessage("TASK WAS DELETED");
+            terminalService.showMessage("TASK WAS DELETED");
         }
     }
 }

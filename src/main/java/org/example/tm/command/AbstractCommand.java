@@ -1,17 +1,24 @@
 package org.example.tm.command;
 
-
+import lombok.Getter;
+import lombok.Setter;
 import org.example.tm.baseApp.ServiceLocator;
-import org.example.tm.entity.user.RoleType;
+import org.example.tm.baseApp.service.ITerminalService;
+import org.example.tm.enumeration.RoleType;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
+import javax.xml.bind.JAXBException;
 import java.io.IOException;
-import java.util.List;
 
+@Getter
+@Setter
 public abstract class AbstractCommand {
     protected ServiceLocator serviceLocator;
-    private boolean isSecure;
+    private final boolean isSecure;
+    protected ITerminalService terminalService;
+
+    @NotNull
+    protected RoleType role = RoleType.USER;
 
     public AbstractCommand(final boolean isSecure) {
         this.isSecure = isSecure;
@@ -19,10 +26,7 @@ public abstract class AbstractCommand {
 
     public void setServiceLocator(@NotNull final ServiceLocator serviceLocator) {
         this.serviceLocator = serviceLocator;
-    }
-
-    public boolean isSecure() {
-        return isSecure;
+        this.terminalService = serviceLocator.getTerminalService();
     }
 
     @NotNull
@@ -31,16 +35,6 @@ public abstract class AbstractCommand {
     @NotNull
     public abstract String getDescription();
 
-    public abstract void execute() throws IOException;
-    public void printList(List<String> list) {
-        if (list.isEmpty()) System.out.println("THE LIST IS EMPTY");
-        else {
-            int numberInList = 0;
-            for (String s : list) {
-                numberInList++;
-                System.out.printf("%d. %s\n", numberInList, s);
-            }
-        }
-    }
+    public abstract void execute() throws IOException, ClassNotFoundException, JAXBException;
 
 }

@@ -2,9 +2,10 @@ package org.example.tm.command.task;
 
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.entity.Task;
+import org.example.tm.util.ComparableEntityComparator;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.ArrayList;
+import java.io.IOException;
 import java.util.List;
 
 import static org.example.tm.command.CommandInfo.TASK_LIST_COMMAND;
@@ -26,12 +27,27 @@ public final class TaskListCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() {
-        serviceLocator.getTerminalService().showMessage("[TASK LIST]");
-        List<String> namesToPrint = new ArrayList<>();
-        for (Task value : serviceLocator.getTaskService().findAll().values()) {
-            namesToPrint.add(value.getName());
+    public void execute() throws IOException {
+        terminalService.showMessage("PLEASE ENTER SORT TYPE: \n" +
+                "(creation-date, start-date, end-date, status)");
+        terminalService.showMessage("[TASK LIST]");
+        String sortType = terminalService.readLine();
+        List<Task> tasks = serviceLocator.getTaskService().findByUserId();
+        switch (sortType) {
+            case "start-date":
+                tasks.sort(ComparableEntityComparator.comparatorStartDate);
+                break;
+            case "end-date":
+                tasks.sort(ComparableEntityComparator.comparatorEndDate);
+                break;
+            case "status":
+                tasks.sort(ComparableEntityComparator.comparatorStatus);
+                break;
+            default:
+                sortType = "creation-date";
+                tasks.sort(ComparableEntityComparator.comparatorCreationDate);
         }
-        printList(namesToPrint);
+        terminalService.showMessage("[TASK LIST SORTED BY " + sortType.toUpperCase() + "]");
+        terminalService.printList(tasks);
     }
 }

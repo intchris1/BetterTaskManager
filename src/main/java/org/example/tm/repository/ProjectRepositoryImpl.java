@@ -5,7 +5,8 @@ import org.example.tm.entity.Project;
 import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Map;
 
 public final class ProjectRepositoryImpl extends AbstractBaseRepositoryImpl<Project> implements IProjectRepository {
@@ -21,12 +22,11 @@ public final class ProjectRepositoryImpl extends AbstractBaseRepositoryImpl<Proj
     }
 
     @Override
-    public @NotNull Map<String, Project> findAll() {
-        Map<String, Project> projectsForUser = new HashMap<>();
+    public @NotNull List<Project> findByUserId() {
+        List<Project> projectsForUser = new ArrayList<>();
         for (Map.Entry<String, Project> stringProjectEntry : entities.entrySet()) {
-            String key = stringProjectEntry.getKey();
             Project project = stringProjectEntry.getValue();
-            if (project.getUserId().equals(currentUser.getId())) projectsForUser.put(key, project);
+            if (project.getUserId().equals(currentUser.getId())) projectsForUser.add(project);
         }
         return projectsForUser;
     }
@@ -36,15 +36,16 @@ public final class ProjectRepositoryImpl extends AbstractBaseRepositoryImpl<Proj
         this.currentUser = user;
     }
 
-    @NotNull
     @Override
-    public Map<String, Project> sortByDateStart() {
-        return null;
+    public @NotNull List<Project> findByPart(@NotNull String searchString) {
+        List<Project> projects = new ArrayList<>();
+        for (Map.Entry<String, Project> stringProjectEntry : entities.entrySet()) {
+            Project project = stringProjectEntry.getValue();
+            if(project.getName().contains(searchString) || project.getDescription().contains(searchString)) {
+                projects.add(project);
+            }
+        }
+        return projects;
     }
 
-    @NotNull
-    @Override
-    public Map<String, Project> sortByDateFinish() {
-        return null;
-    }
 }

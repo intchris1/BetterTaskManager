@@ -4,17 +4,18 @@ import org.example.tm.entity.AbstractEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.Map;
+import java.util.List;
 
 public interface IBaseRepository<T extends AbstractEntity> {
     @NotNull
-    Map<String, T> findAll();
+    List<T> findAll();
 
     @Nullable
     T findOneByName(@NotNull final String name);
 
-    @Nullable
-    T persist(@NotNull final T entity);
+    void persist(@NotNull final T entity);
+
+    void persist(@NotNull final List<T> entities);
 
     @Nullable
     T merge(@NotNull final T entity);

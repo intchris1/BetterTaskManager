@@ -26,17 +26,17 @@ public final class TaskEditCommand extends AbstractCommand {
 
     @Override
     public void execute() throws IOException {
-        serviceLocator.getTerminalService().showMessage("ENTER TASK NAME FOR EDITING:");
-        String oldName = serviceLocator.getTerminalService().readLine();
+        terminalService.showMessage("ENTER TASK NAME FOR EDITING:");
+        String oldName = terminalService.readLine();
         Task task = serviceLocator.getTaskService().findOneByName(oldName);
-        if (task == null) serviceLocator.getTerminalService().showMessage("TASK NOT FOUND OR NAME IS INVALID");
+        if (task == null) terminalService.showMessage("TASK NOT FOUND OR NAME IS INVALID");
         else {
-            serviceLocator.getTerminalService().showMessage("ENTER NEW NAME:");
-            String newName = serviceLocator.getTerminalService().readLine();
+            terminalService.showMessage("ENTER NEW NAME:");
+            String newName = terminalService.readLine();
             task.setName(newName);
             if (serviceLocator.getTaskService().update(task) != null)
-                serviceLocator.getTerminalService().showMessage("TASK WAS EDITED");
-            else serviceLocator.getTerminalService().showMessage("TASK ALREADY EXISTS");
+                terminalService.showMessage("TASK WAS EDITED");
+            else terminalService.showMessage("TASK ALREADY EXISTS");
         }
     }
 }

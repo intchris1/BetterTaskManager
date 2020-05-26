@@ -1,9 +1,7 @@
 package org.example.tm.command.user;
 
 import org.example.tm.command.AbstractCommand;
-import org.example.tm.entity.user.User;
 import org.example.tm.session.Session;
-import org.example.tm.util.Md5Custom;
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -30,13 +28,17 @@ public final class UserLoginCommand extends AbstractCommand {
 
     @Override
     public void execute() throws IOException {
-        serviceLocator.getTerminalService().showMessage("ENTER USER NAME:");
-        String login = serviceLocator.getTerminalService().readLine();
-        serviceLocator.getTerminalService().showMessage("ENTER PASSWORD:");
-        String password = serviceLocator.getTerminalService().readLine();
+        if(serviceLocator.getSessionService().getCurrentSession() != null) {
+            terminalService.showMessage("YOU NEED TO SIGN OUT FIRST");
+            return;
+        }
+        terminalService.showMessage("ENTER USER NAME:");
+        String login = terminalService.readLine();
+        terminalService.showMessage("ENTER PASSWORD:");
+        String password = terminalService.readLine();
         Session session = serviceLocator.getSessionService().open(login, password);
         if (session != null) {
-            serviceLocator.getTerminalService().showMessage("SUCCESSFULLY LOGGED IN");
-        } else serviceLocator.getTerminalService().showMessage("USER NOT FOUND OR PASSWORD IS INVALID");
+            terminalService.showMessage("SUCCESSFULLY LOGGED IN");
+        } else terminalService.showMessage("USER NOT FOUND OR PASSWORD IS INVALID");
     }
 }

@@ -1,4 +1,5 @@
 package org.example.tm.command.task;
+
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.entity.Task;
 import org.jetbrains.annotations.NotNull;
@@ -24,10 +25,12 @@ public final class TaskOpenCommand extends AbstractCommand {
 
     @Override
     public void execute() throws IOException {
-        serviceLocator.getTerminalService().showMessage("ENTER TASK NAME TO OPEN:");
-        String name = serviceLocator.getTerminalService().readLine();
+        terminalService.showMessage("ENTER TASK NAME TO OPEN:");
+        String name = terminalService.readLine();
         Task task = serviceLocator.getTaskService().findOneByName(name);
-        if (task == null) serviceLocator.getTerminalService().showMessage("TASK NOT FOUND");
-        else serviceLocator.getTerminalService().showMessage(task.toString());
+        if (task == null) terminalService.showMessage("TASK NOT FOUND");
+
+
+        else terminalService.showMessage(task.toString());
     }
 }

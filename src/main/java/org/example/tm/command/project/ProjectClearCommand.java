@@ -22,9 +22,9 @@ public final class ProjectClearCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        serviceLocator.getTerminalService().showMessage("[PROJECT CLEAR]");
+        terminalService.showMessage("[PROJECT CLEAR]");
         serviceLocator.getProjectService().removeAll();
         serviceLocator.getTaskService().removeAll();
-        serviceLocator.getTerminalService().showMessage("[OK]");
+        terminalService.showMessage("[OK]");
     }
 }

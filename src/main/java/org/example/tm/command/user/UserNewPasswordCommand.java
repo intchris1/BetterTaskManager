@@ -28,16 +28,16 @@ public final class UserNewPasswordCommand extends AbstractCommand {
     @Override
     public void execute() throws IOException {
         String oldName = serviceLocator.getSessionService().getCurrentSession().getUser().getName();
-        serviceLocator.getTerminalService().showMessage("CURRENT USER NAME: " + oldName);
-        serviceLocator.getTerminalService().showMessage("ENTER NEW PASSWORD:");
-        String newPassword = serviceLocator.getTerminalService().readLine();
+        terminalService.showMessage("CURRENT USER NAME: " + oldName);
+        terminalService.showMessage("ENTER NEW PASSWORD:");
+        String newPassword = terminalService.readLine();
         User user = serviceLocator.getUserService().findOneByName(oldName);
-        if(user != null) {
+        if (user != null) {
             user.setPassword(newPassword);
             if (serviceLocator.getUserService().editPassword(user) != null)
-                serviceLocator.getTerminalService().showMessage("USER PASSWORD WAS EDITED");
+                terminalService.showMessage("USER PASSWORD WAS EDITED");
         } else {
-            serviceLocator.getTerminalService().showMessage("USER NOT FOUND");
+            terminalService.showMessage("USER NOT FOUND");
         }
 
     }

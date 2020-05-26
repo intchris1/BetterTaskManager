@@ -3,18 +3,15 @@ package org.example.tm.baseApp.service;
 import org.example.tm.entity.Project;
 import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.Map;
+import java.util.List;
 
 public interface IProjectService extends IBaseService<Project> {
 
     void setUser(User user);
 
-    @NotNull
-    Map<String, Project> sortByDateStart();
+    @NotNull List<Project> findByPart(@NotNull String searchString);
 
     @NotNull
-    Map<String, Project> sortByDateFinish();
-
+    List<Project> findByUserId();
 }

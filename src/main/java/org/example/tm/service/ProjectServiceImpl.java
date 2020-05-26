@@ -6,7 +6,7 @@ import org.example.tm.entity.Project;
 import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
 
-import java.util.Map;
+import java.util.List;
 
 public class ProjectServiceImpl extends AbstractBaseServiceImpl<Project, IProjectRepository> implements IProjectService {
     public ProjectServiceImpl(IProjectRepository baseR) {
@@ -19,12 +19,12 @@ public class ProjectServiceImpl extends AbstractBaseServiceImpl<Project, IProjec
     }
 
     @Override
-    public @NotNull Map<String, Project> sortByDateStart() {
-        return baseRep.sortByDateStart();
+    public @NotNull List<Project> findByPart(@NotNull String searchString) {
+        return baseRep.findByPart(searchString);
     }
 
     @Override
-    public @NotNull Map<String, Project> sortByDateFinish() {
-        return baseRep.sortByDateStart();
+    public @NotNull List<Project> findByUserId() {
+        return baseRep.findByUserId();
     }
 }

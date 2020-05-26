@@ -5,24 +5,21 @@ import org.example.tm.baseApp.ServiceLocator;
 import org.example.tm.baseApp.repository.IProjectRepository;
 import org.example.tm.baseApp.repository.ITaskRepository;
 import org.example.tm.baseApp.repository.IUserRepository;
-import org.example.tm.baseApp.service.IProjectService;
-import org.example.tm.baseApp.service.ITaskService;
-import org.example.tm.baseApp.service.ITerminalService;
-import org.example.tm.baseApp.service.IUserService;
+import org.example.tm.baseApp.service.*;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.entity.user.User;
+import org.example.tm.enumeration.RoleType;
 import org.example.tm.repository.ProjectRepositoryImpl;
 import org.example.tm.repository.TaskRepositoryImpl;
 import org.example.tm.repository.UserRepositoryImpl;
-import org.example.tm.service.ProjectServiceImpl;
-import org.example.tm.service.TaskServiceImpl;
-import org.example.tm.service.TerminalServiceImpl;
-import org.example.tm.service.UserServiceImpl;
+import org.example.tm.service.*;
 import org.example.tm.session.SessionService;
 import org.example.tm.session.SessionServiceImpl;
+import org.example.tm.util.PasswordHashUtil;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import javax.xml.bind.JAXBException;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -57,6 +54,8 @@ public final class Bootstrap implements ServiceLocator {
 
     private final SessionService sessionService = new SessionServiceImpl(this);
 
+    private final ISubjectAreaService subjectAreaService = new SubjectAreaServiceImpl();
+
     @NotNull
     @Override
     public ITaskService getTaskService() {
@@ -87,8 +86,13 @@ public final class Bootstrap implements ServiceLocator {
         return sessionService;
     }
 
+    @Override
+    public @NotNull ISubjectAreaService getSubjectAreaService() {
+        return subjectAreaService;
+    }
 
-    public void init(Class[] classes) throws IOException {
+
+    public void init(Class[] classes) throws IOException, ClassNotFoundException, JAXBException {
         initializeCommands(classes);
         initializeUsers();
         execute("help");
@@ -113,7 +117,7 @@ public final class Bootstrap implements ServiceLocator {
         }
     }
 
-    private void execute(@Nullable final String commandName) throws IOException {
+    private void execute(@Nullable final String commandName) throws IOException, ClassNotFoundException, JAXBException {
         if (commandName == null || commandName.isEmpty()) {
             return;
         }
@@ -123,7 +127,8 @@ public final class Bootstrap implements ServiceLocator {
             return;
         }
         final boolean secureCheck = !abstractCommand.isSecure() ||
-                (abstractCommand.isSecure() && sessionService.getCurrentSession() != null);
+                (abstractCommand.isSecure() && (sessionService.getCurrentSession() != null && (sessionService.getCurrentSession().getUser()
+                        .getDisplayName() == RoleType.ADMIN || abstractCommand.getRole() == RoleType.USER)));
         if (secureCheck) {
             abstractCommand.execute();
             return;
@@ -132,17 +137,22 @@ public final class Bootstrap implements ServiceLocator {
     }
 
     public void initializeUsers() {
-        User newAdmin = new User();
-        newAdmin.setName("admin");
-        newAdmin.setPassword("12345");
-        userRepository.persist(newAdmin);
+        User admin = new User();
+        admin.setPassword(PasswordHashUtil.md5("admin"));
+        admin.setDisplayName(RoleType.ADMIN);
+        admin.setName("admin");
+
+        userRepository.persist(admin);
+
         User kate = new User();
+        kate.setPassword(PasswordHashUtil.md5("123"));
         kate.setName("Kate");
-        kate.setPassword("123");
         userRepository.persist(kate);
+
         User mo = new User();
+        mo.setPassword(PasswordHashUtil.md5("123"));
         mo.setName("Mo");
-        mo.setPassword("123");
+
         userRepository.persist(mo);
     }
 }

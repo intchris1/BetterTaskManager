@@ -5,7 +5,9 @@ import org.example.tm.entity.AbstractEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public abstract class AbstractBaseRepositoryImpl<T extends AbstractEntity> implements IBaseRepository<T> {
@@ -17,17 +19,23 @@ public abstract class AbstractBaseRepositoryImpl<T extends AbstractEntity> imple
 
     @NotNull
     @Override
-    public abstract Map<String, T> findAll();
+    public List<T> findAll() {
+        return new ArrayList<>(entities.values());
+    }
 
     @Nullable
     @Override
     public abstract T findOneByName(@NotNull String name);
 
-    @Nullable
     @Override
-    public T persist(@NotNull T entity) {
+    public void persist(@NotNull T entity) {
         entities.put(entity.getId(), entity);
-        return entity;
+    }
+
+    @Override
+    public void persist(@NotNull List<T> list) {
+        entities.clear();
+        list.forEach(entity -> entities.put(entity.getId(), entity));
     }
 
     @Nullable
@@ -45,4 +53,6 @@ public abstract class AbstractBaseRepositoryImpl<T extends AbstractEntity> imple
     public void removeAll() {
         entities.clear();
     }
+
+
 }

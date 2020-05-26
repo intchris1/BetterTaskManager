@@ -6,9 +6,8 @@ import org.example.tm.baseApp.service.ITaskService;
 import org.example.tm.entity.Task;
 import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
 
-import java.util.Map;
+import java.util.List;
 
 public class TaskServiceImpl extends AbstractBaseServiceImpl<Task, ITaskRepository> implements ITaskService {
     public TaskServiceImpl(ITaskRepository baseRep) {
@@ -22,8 +21,7 @@ public class TaskServiceImpl extends AbstractBaseServiceImpl<Task, ITaskReposito
 
 
     @Override
-    public Map<String, Task> getByProjectId(@NotNull String projectId) {
-        if(projectId == null || projectId.isEmpty()) return null;
+    public @NotNull List<Task> getByProjectId(@NotNull String projectId) {
         return baseRep.getByProjectId(projectId);
     }
 
@@ -33,12 +31,15 @@ public class TaskServiceImpl extends AbstractBaseServiceImpl<Task, ITaskReposito
     }
 
     @Override
-    public @NotNull Map<String, Task> sortByDateStart(@NotNull String currentUserId) {
-        return null;
+    public @NotNull List<Task> findByPart(@NotNull String searchString) {
+        return baseRep.findByPart(searchString);
     }
 
     @Override
-    public @NotNull Map<String, Task> sortByDateFinish(@NotNull String currentUserId) {
-        return null;
+    public @NotNull List<Task> findByUserId() {
+        return baseRep.findByUserId();
     }
 }
+
+
+

@@ -27,14 +27,14 @@ public final class ProjectRemoveCommand extends AbstractCommand {
 
     @Override
     public void execute() throws IOException {
-        serviceLocator.getTerminalService().showMessage("ENTER PROJECT NAME TO DELETE");
-        String name = serviceLocator.getTerminalService().readLine();
+        terminalService.showMessage("ENTER PROJECT NAME TO DELETE");
+        String name = terminalService.readLine();
         Project project = serviceLocator.getProjectService().findOneByName(name);
-        if (project == null) serviceLocator.getTerminalService().showMessage("NO SUCH PROJECT");
+        if (project == null) terminalService.showMessage("NO SUCH PROJECT");
         else {
             serviceLocator.getProjectService().remove(project);
             serviceLocator.getTaskService().removeByProjectId(project.getId());
-            serviceLocator.getTerminalService().showMessage("PROJECT WAS DELETED");
+            terminalService.showMessage("PROJECT WAS DELETED");
         }
     }
 }
