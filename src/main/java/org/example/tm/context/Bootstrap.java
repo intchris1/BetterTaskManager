@@ -25,6 +25,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.LinkedHashMap;
 import java.util.Map;
+import java.util.Set;
 
 @NoArgsConstructor
 public final class Bootstrap implements ServiceLocator {
@@ -92,7 +93,7 @@ public final class Bootstrap implements ServiceLocator {
     }
 
 
-    public void init(Class[] classes) throws IOException, ClassNotFoundException, JAXBException {
+    public void init(@NotNull final Set<Class<? extends AbstractCommand>> classes) throws IOException, ClassNotFoundException, JAXBException {
         initializeCommands(classes);
         initializeUsers();
         execute("help");
@@ -104,11 +105,11 @@ public final class Bootstrap implements ServiceLocator {
         }
     }
 
-    public void initializeCommands(Class[] classes) {
-        for (final @Nullable Class aClass : classes) {
+    public void initializeCommands(@NotNull final Set<Class<? extends AbstractCommand>> classes) {
+        for (final @Nullable Class<? extends AbstractCommand> aClass : classes) {
             if (aClass == null || !AbstractCommand.class.isAssignableFrom(aClass)) continue;
             try {
-                final AbstractCommand instance = (AbstractCommand) aClass.newInstance();
+                final AbstractCommand instance = aClass.newInstance();
                 instance.setServiceLocator(this);
                 commands.put(instance.getName(), instance);
             } catch (InstantiationException | IllegalAccessException e) {
