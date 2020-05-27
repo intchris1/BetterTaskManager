@@ -26,10 +26,11 @@ public class DataJaxbXmlSaveCommand extends AbstractCommand {
     }
 
     @Autowired
-    BeanFactory beanFactory;
+    private final BeanFactory beanFactory;
 
-    public DataJaxbXmlSaveCommand() {
+    public DataJaxbXmlSaveCommand(BeanFactory beanFactory) {
         super(true);
+        this.beanFactory = beanFactory;
     }
 
     @Override

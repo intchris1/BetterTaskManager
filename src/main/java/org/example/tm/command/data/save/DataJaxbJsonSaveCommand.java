@@ -26,10 +26,11 @@ public class DataJaxbJsonSaveCommand extends AbstractCommand {
     }
 
     @Autowired
-    BeanFactory beanFactory;
+    private final BeanFactory beanFactory;
 
-    public DataJaxbJsonSaveCommand() {
+    public DataJaxbJsonSaveCommand(BeanFactory beanFactory) {
         super(true);
+        this.beanFactory = beanFactory;
     }
 
     @Override

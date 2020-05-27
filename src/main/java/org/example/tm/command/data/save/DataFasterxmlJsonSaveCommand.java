@@ -25,10 +25,11 @@ public class DataFasterxmlJsonSaveCommand extends AbstractCommand {
     }
 
     @Autowired
-    BeanFactory beanFactory;
+    private final BeanFactory beanFactory;
 
-    public DataFasterxmlJsonSaveCommand() {
+    public DataFasterxmlJsonSaveCommand(BeanFactory beanFactory) {
         super(true);
+        this.beanFactory = beanFactory;
     }
 
     @Override

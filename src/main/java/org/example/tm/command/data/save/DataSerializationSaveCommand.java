@@ -24,10 +24,11 @@ public class DataSerializationSaveCommand extends AbstractCommand {
     }
 
     @Autowired
-    BeanFactory beanFactory;
+    private final BeanFactory beanFactory;
 
-    public DataSerializationSaveCommand() {
+    public DataSerializationSaveCommand(BeanFactory beanFactory) {
         super(true);
+        this.beanFactory = beanFactory;
     }
 
     @Override

@@ -27,10 +27,11 @@ public class DataFasterxmlXmlSaveCommand extends AbstractCommand {
     }
 
     @Autowired
-    BeanFactory beanFactory;
+    private final BeanFactory beanFactory;
 
-    public DataFasterxmlXmlSaveCommand() {
+    public DataFasterxmlXmlSaveCommand(BeanFactory beanFactory) {
         super(true);
+        this.beanFactory = beanFactory;
     }
 
     @Override
