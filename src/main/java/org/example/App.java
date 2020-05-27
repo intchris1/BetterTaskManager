@@ -1,55 +1,15 @@
 package org.example;
 
-import org.example.tm.command.data.load.*;
-import org.example.tm.command.data.save.*;
-import org.example.tm.command.project.*;
-import org.example.tm.command.system.AboutCommand;
-import org.example.tm.command.system.ExitCommand;
-import org.example.tm.command.system.HelpCommand;
-import org.example.tm.command.task.*;
-import org.example.tm.command.user.*;
 import org.example.tm.context.Bootstrap;
-import org.jetbrains.annotations.NotNull;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
+
+@SpringBootApplication
 public class App 
 {
     public static void main(String[] args) throws Exception {
-        @NotNull final Bootstrap bootstrap = new Bootstrap();
-        @NotNull final Class[] classes = new Class[] {
-                HelpCommand.class,
-                DataSerializationLoadCommand.class,
-                DataJaxbXmlLoadCommand.class,
-                DataJaxbJsonLoadCommand.class,
-                DataFasterxmlXmlLoadCommand.class,
-                DataFasterxmlJsonLoadCommand.class,
-                DataSerializationSaveCommand.class,
-                DataJaxbXmlSaveCommand.class,
-                DataJaxbJsonSaveCommand.class,
-                DataFasterxmlXmlSaveCommand.class,
-                DataFasterxmlJsonSaveCommand.class,
-                ProjectClearCommand.class,
-                ProjectCreateCommand.class,
-                ProjectListCommand.class,
-                ProjectOpenCommand.class,
-                ProjectRemoveCommand.class,
-                ProjectEditCommand.class,
-                ProjectSearchCommand.class,
-                TaskClearCommand.class,
-                TaskCreateCommand.class,
-                TaskListCommand.class,
-                TaskOpenCommand.class,
-                TaskRemoveCommand.class,
-                TaskEditCommand.class,
-                TaskSearchCommand.class,
-                ExitCommand.class,
-                UserCreateCommand.class,
-                UserLoginCommand.class,
-                UserLogoutCommand.class,
-                UserOpenCommand.class,
-                UserEditCommand.class,
-                UserNewPasswordCommand.class,
-                AboutCommand.class
-        };
-        bootstrap.init(classes);
+        var ctxt = SpringApplication.run(App.class, args);
+        ctxt.getBean(Bootstrap.class).init();
     }
 }

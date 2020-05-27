@@ -1,14 +1,20 @@
 package org.example.tm.command.user;
 
 import org.example.tm.command.AbstractCommand;
+import org.example.tm.session.SessionService;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import static org.example.tm.command.CommandInfo.USER_OPEN_COMMAND;
 
+@Component
 public final class UserOpenCommand extends AbstractCommand {
 
-    public UserOpenCommand() {
+    private final SessionService sessionService;
+
+    public UserOpenCommand(SessionService sessionService) {
         super(true);
+        this.sessionService = sessionService;
     }
 
     @Override
@@ -23,6 +29,6 @@ public final class UserOpenCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        terminalService.showMessage(serviceLocator.getSessionService().getCurrentSession().getUser().toString());
+        terminalService.showMessage(sessionService.getCurrentSession().getUser().toString());
     }
 }

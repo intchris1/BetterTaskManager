@@ -3,7 +3,9 @@ package org.example.tm.command.data.load;
 import org.example.tm.baseApp.service.ISubjectAreaService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.enumeration.RoleType;
+import org.example.tm.session.SessionService;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -11,15 +13,19 @@ import java.io.ObjectInputStream;
 
 import static org.example.tm.command.CommandInfo.DATA_SER_LOAD_COMMAND;
 
+@Component
 public class DataSerializationLoadCommand extends AbstractCommand {
-    public DataSerializationLoadCommand() {
-        super(true);
-    }
 
     {
         setRole(RoleType.ADMIN);
     }
 
+    private final SessionService sessionService;
+
+    public DataSerializationLoadCommand(SessionService sessionService) {
+        super(true);
+        this.sessionService = sessionService;
+    }
 
     @Override
     public @NotNull String getName() {
@@ -36,8 +42,8 @@ public class DataSerializationLoadCommand extends AbstractCommand {
         @NotNull final FileInputStream fis = new FileInputStream("data/data.bin");
         @NotNull final ObjectInputStream ois = new ObjectInputStream(fis);
         @NotNull final ISubjectAreaService subjectAreaService = (ISubjectAreaService) ois.readObject();
-        serviceLocator.getSessionService().signOut();
-        subjectAreaService.write(serviceLocator);
+        sessionService.signOut();
+        subjectAreaService.write();
         ois.close();
         fis.close();
         terminalService.showMessage("DATA LOADED");

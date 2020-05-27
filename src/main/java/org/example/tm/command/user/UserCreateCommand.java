@@ -1,19 +1,25 @@
 package org.example.tm.command.user;
 
 
+import org.example.tm.baseApp.service.IUserService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.entity.user.User;
 import org.example.tm.util.PasswordHashUtil;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 import static org.example.tm.command.CommandInfo.USER_CREATE_COMMAND;
 
+@Component
 public final class UserCreateCommand extends AbstractCommand {
 
-    public UserCreateCommand() {
+    private final IUserService userService;
+
+    public UserCreateCommand(IUserService userService) {
         super(false);
+        this.userService = userService;
     }
 
     @Override
@@ -31,7 +37,7 @@ public final class UserCreateCommand extends AbstractCommand {
         terminalService.showMessage("[USER CREATE]");
         terminalService.showMessage("ENTER USER NAME:");
         String userName = terminalService.readLine();
-        if (serviceLocator.getUserService().findOneByName(userName) != null)
+        if (userService.findOneByName(userName) != null)
             terminalService.showMessage("USER ALREADY EXISTS");
         else {
             terminalService.showMessage("ENTER PASSWORD:");
@@ -39,7 +45,7 @@ public final class UserCreateCommand extends AbstractCommand {
             User user = new User();
             user.setName(userName);
             user.setPassword(PasswordHashUtil.md5(password));
-            if (serviceLocator.getUserService().save(user) != null)
+            if (userService.save(user) != null)
                 terminalService.showMessage("USER WAS CREATED");
         }
     }

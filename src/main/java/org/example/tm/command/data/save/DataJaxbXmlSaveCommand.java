@@ -5,6 +5,9 @@ import org.example.tm.command.AbstractCommand;
 import org.example.tm.enumeration.RoleType;
 import org.example.tm.service.SubjectAreaServiceImpl;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -14,11 +17,16 @@ import java.io.IOException;
 
 import static org.example.tm.command.CommandInfo.DATA_JAXB_XML_SAVE_COMMAND;
 
+
+@Component
 public class DataJaxbXmlSaveCommand extends AbstractCommand {
 
     {
         setRole(RoleType.ADMIN);
     }
+
+    @Autowired
+    BeanFactory beanFactory;
 
     public DataJaxbXmlSaveCommand() {
         super(true);
@@ -36,15 +44,15 @@ public class DataJaxbXmlSaveCommand extends AbstractCommand {
 
     @Override
     public void execute() throws IOException, ClassNotFoundException, JAXBException {
-        @NotNull final ISubjectAreaService subjectAreaService = new SubjectAreaServiceImpl();
-        subjectAreaService.read(serviceLocator);
+        @NotNull final ISubjectAreaService subjectAreaService = beanFactory.getBean(ISubjectAreaService.class);
+        subjectAreaService.read();
         @NotNull final File folder = new File("data");
         if (!folder.exists()) folder.mkdir();
         @NotNull final File file = new File("data/jaxb.xml");
         @NotNull final JAXBContext context = JAXBContext.newInstance(SubjectAreaServiceImpl.class);
         @NotNull final Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.marshal(subjectAreaService,file);
+        marshaller.marshal(subjectAreaService, file);
         terminalService.showMessage("DATA SAVED");
 
     }

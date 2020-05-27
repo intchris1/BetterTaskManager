@@ -4,11 +4,13 @@ import org.example.tm.baseApp.repository.IProjectRepository;
 import org.example.tm.entity.Project;
 import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public final class ProjectRepositoryImpl extends AbstractBaseRepositoryImpl<Project> implements IProjectRepository {
     private User currentUser;
 

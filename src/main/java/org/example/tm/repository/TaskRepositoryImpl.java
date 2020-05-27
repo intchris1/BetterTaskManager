@@ -5,11 +5,13 @@ import org.example.tm.entity.Task;
 import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class TaskRepositoryImpl extends AbstractBaseRepositoryImpl<Task> implements ITaskRepository {
     private User currentUser;
 

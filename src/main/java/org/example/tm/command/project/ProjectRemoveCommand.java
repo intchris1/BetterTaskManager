@@ -1,17 +1,26 @@
 package org.example.tm.command.project;
 
+import org.example.tm.baseApp.service.IProjectService;
+import org.example.tm.baseApp.service.ITaskService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.entity.Project;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 import static org.example.tm.command.CommandInfo.PROJECT_REMOVE_COMMAND;
 
+@Component
 public final class ProjectRemoveCommand extends AbstractCommand {
 
-    public ProjectRemoveCommand() {
+    private final IProjectService projectService;
+    private final ITaskService taskService;
+
+    public ProjectRemoveCommand(IProjectService projectService, ITaskService taskService) {
         super(true);
+        this.projectService = projectService;
+        this.taskService = taskService;
     }
 
 
@@ -29,11 +38,11 @@ public final class ProjectRemoveCommand extends AbstractCommand {
     public void execute() throws IOException {
         terminalService.showMessage("ENTER PROJECT NAME TO DELETE");
         String name = terminalService.readLine();
-        Project project = serviceLocator.getProjectService().findOneByName(name);
+        Project project = projectService.findOneByName(name);
         if (project == null) terminalService.showMessage("NO SUCH PROJECT");
         else {
-            serviceLocator.getProjectService().remove(project);
-            serviceLocator.getTaskService().removeByProjectId(project.getId());
+            projectService.remove(project);
+            taskService.removeByProjectId(project.getId());
             terminalService.showMessage("PROJECT WAS DELETED");
         }
     }

@@ -2,10 +2,11 @@ package org.example.tm.command;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.example.tm.baseApp.ServiceLocator;
 import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.enumeration.RoleType;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.xml.bind.JAXBException;
 import java.io.IOException;
@@ -13,20 +14,14 @@ import java.io.IOException;
 @Getter
 @Setter
 public abstract class AbstractCommand {
-    protected ServiceLocator serviceLocator;
-    private final boolean isSecure;
+    @Autowired
     protected ITerminalService terminalService;
-
+    private final boolean isSecure;
     @NotNull
     protected RoleType role = RoleType.USER;
 
     public AbstractCommand(final boolean isSecure) {
         this.isSecure = isSecure;
-    }
-
-    public void setServiceLocator(@NotNull final ServiceLocator serviceLocator) {
-        this.serviceLocator = serviceLocator;
-        this.terminalService = serviceLocator.getTerminalService();
     }
 
     @NotNull

@@ -1,99 +1,39 @@
 package org.example.tm.context;
 
-import lombok.NoArgsConstructor;
-import org.example.tm.baseApp.ServiceLocator;
-import org.example.tm.baseApp.repository.IProjectRepository;
-import org.example.tm.baseApp.repository.ITaskRepository;
+import org.example.tm.baseApp.IServiceLocator;
 import org.example.tm.baseApp.repository.IUserRepository;
-import org.example.tm.baseApp.service.*;
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
+import org.example.tm.command.CommandFactory;
 import org.example.tm.entity.user.User;
 import org.example.tm.enumeration.RoleType;
-import org.example.tm.repository.ProjectRepositoryImpl;
-import org.example.tm.repository.TaskRepositoryImpl;
-import org.example.tm.repository.UserRepositoryImpl;
-import org.example.tm.service.*;
 import org.example.tm.session.SessionService;
-import org.example.tm.session.SessionServiceImpl;
 import org.example.tm.util.PasswordHashUtil;
-import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBException;
 import java.io.BufferedReader;
 import java.io.IOException;
-import java.io.InputStreamReader;
-import java.util.LinkedHashMap;
-import java.util.Map;
 
-@NoArgsConstructor
-public final class Bootstrap implements ServiceLocator {
+@Component
+public final class Bootstrap implements IServiceLocator {
 
-    @NotNull
-    private final ITaskRepository taskRepository = new TaskRepositoryImpl();
+    private final CommandFactory factory;
+    private final ITerminalService terminalService;
+    private final SessionService sessionService;
+    private final IUserRepository userRepository;
+    public BufferedReader reader;
 
-    @NotNull
-    private final IProjectRepository projectRepository = new ProjectRepositoryImpl();
-
-    @NotNull
-    private final IUserRepository userRepository = new UserRepositoryImpl();
-
-    @NotNull
-    private final BufferedReader reader = new BufferedReader(new InputStreamReader(System.in));
-
-    @NotNull
-    private final Map<String, AbstractCommand> commands = new LinkedHashMap<>();
-
-    private final ITaskService taskService = new TaskServiceImpl(taskRepository);
-
-    private final IProjectService projectService = new ProjectServiceImpl(projectRepository);
-
-    private final IUserService userService = new UserServiceImpl(userRepository);
-
-    private final ITerminalService terminalService = new TerminalServiceImpl(reader);
-
-    private final SessionService sessionService = new SessionServiceImpl(this);
-
-    private final ISubjectAreaService subjectAreaService = new SubjectAreaServiceImpl();
-
-    @NotNull
-    @Override
-    public ITaskService getTaskService() {
-        return taskService;
+    private Bootstrap(CommandFactory factory, ITerminalService terminalService, SessionService sessionService, IUserRepository userRepository, BufferedReader reader) {
+        this.factory = factory;
+        this.terminalService = terminalService;
+        this.sessionService = sessionService;
+        this.userRepository = userRepository;
+        this.reader = reader;
     }
 
-    @NotNull
-    @Override
-    public IProjectService getProjectService() {
-        return projectService;
-    }
-
-    @NotNull
-    @Override
-    public IUserService getUserService() {
-        return userService;
-    }
-
-    @NotNull
-    @Override
-    public ITerminalService getTerminalService() {
-        return terminalService;
-    }
-
-    @NotNull
-    @Override
-    public SessionService getSessionService() {
-        return sessionService;
-    }
-
-    @Override
-    public @NotNull ISubjectAreaService getSubjectAreaService() {
-        return subjectAreaService;
-    }
-
-
-    public void init(Class[] classes) throws IOException, ClassNotFoundException, JAXBException {
-        initializeCommands(classes);
+    public void init() throws IOException, ClassNotFoundException, JAXBException {
         initializeUsers();
         execute("help");
         while (true) {
@@ -104,26 +44,14 @@ public final class Bootstrap implements ServiceLocator {
         }
     }
 
-    public void initializeCommands(Class[] classes) {
-        for (final @Nullable Class aClass : classes) {
-            if (aClass == null || !AbstractCommand.class.isAssignableFrom(aClass)) continue;
-            try {
-                final AbstractCommand instance = (AbstractCommand) aClass.newInstance();
-                instance.setServiceLocator(this);
-                commands.put(instance.getName(), instance);
-            } catch (InstantiationException | IllegalAccessException e) {
-                e.printStackTrace();
-            }
-        }
-    }
 
     private void execute(@Nullable final String commandName) throws IOException, ClassNotFoundException, JAXBException {
         if (commandName == null || commandName.isEmpty()) {
             return;
         }
-        @Nullable final AbstractCommand abstractCommand = commands.get(commandName);
+        @Nullable final AbstractCommand abstractCommand = factory.getCommand(commandName);
         if (abstractCommand == null) {
-            getTerminalService().showMessage("WRONG COMMAND");
+            terminalService.showMessage("WRONG COMMAND");
             return;
         }
         final boolean secureCheck = !abstractCommand.isSecure() ||
@@ -133,7 +61,7 @@ public final class Bootstrap implements ServiceLocator {
             abstractCommand.execute();
             return;
         }
-        getTerminalService().showMessage("YOU NEED TO AUTHORIZE FIRST");
+        terminalService.showMessage("YOU NEED TO AUTHORIZE FIRST");
     }
 
     public void initializeUsers() {

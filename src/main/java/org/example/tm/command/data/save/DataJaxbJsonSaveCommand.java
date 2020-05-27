@@ -6,6 +6,9 @@ import org.example.tm.command.AbstractCommand;
 import org.example.tm.enumeration.RoleType;
 import org.example.tm.service.SubjectAreaServiceImpl;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -15,11 +18,15 @@ import java.io.IOException;
 
 import static org.example.tm.command.CommandInfo.DATA_JAXB_JSON_SAVE_COMMAND;
 
+@Component
 public class DataJaxbJsonSaveCommand extends AbstractCommand {
 
     {
         setRole(RoleType.ADMIN);
     }
+
+    @Autowired
+    BeanFactory beanFactory;
 
     public DataJaxbJsonSaveCommand() {
         super(true);
@@ -38,8 +45,8 @@ public class DataJaxbJsonSaveCommand extends AbstractCommand {
     @Override
     public void execute() throws IOException, ClassNotFoundException, JAXBException {
         System.setProperty("javax.xml.bind.context.factory", "org.eclipse.persistence.jaxb.JAXBContextFactory");
-        @NotNull final ISubjectAreaService subjectAreaService = new SubjectAreaServiceImpl();
-        subjectAreaService.read(serviceLocator);
+        @NotNull final ISubjectAreaService subjectAreaService = beanFactory.getBean(ISubjectAreaService.class);
+        subjectAreaService.read();
         @NotNull final File folder = new File("data");
         if (!folder.exists()) folder.mkdir();
         @NotNull final File file = new File("data/jaxb.json");
@@ -47,7 +54,7 @@ public class DataJaxbJsonSaveCommand extends AbstractCommand {
         @NotNull final Marshaller marshaller = context.createMarshaller();
         marshaller.setProperty(MarshallerProperties.MEDIA_TYPE, "application/json");
         marshaller.setProperty(Marshaller.JAXB_FORMATTED_OUTPUT, true);
-        marshaller.marshal(subjectAreaService,file);
+        marshaller.marshal(subjectAreaService, file);
         terminalService.showMessage("DATA SAVED");
 
     }

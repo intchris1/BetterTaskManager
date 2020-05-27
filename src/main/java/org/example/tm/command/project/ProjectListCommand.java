@@ -1,18 +1,25 @@
 package org.example.tm.command.project;
 
+import org.example.tm.baseApp.service.IProjectService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.entity.Project;
 import org.example.tm.util.ComparableEntityComparator;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
 
 import static org.example.tm.command.CommandInfo.PROJECT_LIST_COMMAND;
 
+@Component
 public final class ProjectListCommand extends AbstractCommand {
-    public ProjectListCommand() {
+
+    private final IProjectService projectService;
+
+    public ProjectListCommand(IProjectService projectService) {
         super(true);
+        this.projectService = projectService;
     }
 
 
@@ -31,7 +38,7 @@ public final class ProjectListCommand extends AbstractCommand {
         terminalService.showMessage("PLEASE ENTER SORT TYPE: \n" +
                 "(creation-date, start-date, end-date, status)");
         String sortType = terminalService.readLine();
-        List<Project> projects = serviceLocator.getProjectService().findByUserId();
+        List<Project> projects = projectService.findByUserId();
         switch (sortType) {
             case "start-date":
                 projects.sort(ComparableEntityComparator.comparatorStartDate);

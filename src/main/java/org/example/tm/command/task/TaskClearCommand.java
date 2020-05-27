@@ -1,13 +1,20 @@
 package org.example.tm.command.task;
 
+import org.example.tm.baseApp.service.ITaskService;
 import org.example.tm.command.AbstractCommand;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import static org.example.tm.command.CommandInfo.TASK_CLEAR_COMMAND;
 
+@Component
 public final class TaskClearCommand extends AbstractCommand {
-    public TaskClearCommand() {
+
+    private final ITaskService taskService;
+
+    public TaskClearCommand(ITaskService taskService) {
         super(true);
+        this.taskService = taskService;
     }
 
     @Override
@@ -22,7 +29,7 @@ public final class TaskClearCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        serviceLocator.getTaskService().removeAll();
+        taskService.removeAll();
         terminalService.showMessage("ALL TASKS WERE REMOVED");
     }
 }

@@ -5,7 +5,9 @@ import org.example.tm.baseApp.repository.IUserRepository;
 import org.example.tm.baseApp.service.IUserService;
 import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
+@Component
 public class UserServiceImpl extends AbstractBaseServiceImpl<User, IUserRepository> implements IUserService {
     public UserServiceImpl(IUserRepository baseRep) {
         super(baseRep);

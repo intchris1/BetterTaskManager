@@ -1,14 +1,20 @@
 package org.example.tm.command.user;
 
 import org.example.tm.command.AbstractCommand;
+import org.example.tm.session.SessionService;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import static org.example.tm.command.CommandInfo.USER_LOGOUT_COMMAND;
 
+@Component
 public final class UserLogoutCommand extends AbstractCommand {
 
-    public UserLogoutCommand() {
+    private final SessionService sessionService;
+
+    public UserLogoutCommand(SessionService sessionService) {
         super(true);
+        this.sessionService = sessionService;
     }
 
 
@@ -24,7 +30,7 @@ public final class UserLogoutCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        serviceLocator.getSessionService().signOut();
+        sessionService.signOut();
         terminalService.showMessage("LOGGED OUT");
     }
 }

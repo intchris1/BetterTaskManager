@@ -6,7 +6,9 @@ import org.example.tm.baseApp.service.ISubjectAreaService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.enumeration.RoleType;
 import org.example.tm.service.SubjectAreaServiceImpl;
+import org.example.tm.session.SessionService;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBException;
 import java.io.File;
@@ -16,14 +18,18 @@ import java.text.SimpleDateFormat;
 
 import static org.example.tm.command.CommandInfo.DATA_FASTERXML_XML_LOAD_COMMAND;
 
+@Component
 public class DataFasterxmlXmlLoadCommand extends AbstractCommand {
 
     {
         setRole(RoleType.ADMIN);
     }
 
-    public DataFasterxmlXmlLoadCommand() {
+    private final SessionService sessionService;
+
+    public DataFasterxmlXmlLoadCommand(SessionService sessionService) {
         super(true);
+        this.sessionService = sessionService;
     }
 
     @Override
@@ -44,8 +50,8 @@ public class DataFasterxmlXmlLoadCommand extends AbstractCommand {
         @NotNull final DateFormat df = new SimpleDateFormat("yyyy-MM-dd HH:mm a z");
         xmlMapper.setDateFormat(df);
         @NotNull final ISubjectAreaService subjectAreaService = xmlMapper.readValue(file, SubjectAreaServiceImpl.class);
-        serviceLocator.getSessionService().signOut();
-        subjectAreaService.write(serviceLocator);
+        sessionService.signOut();
+        subjectAreaService.write();
         terminalService.showMessage("DATA LOADED");
         terminalService.showMessage("YOU NEED TO LOGIN AGAIN");
     }

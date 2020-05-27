@@ -4,7 +4,9 @@ import org.example.tm.baseApp.service.ISubjectAreaService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.enumeration.RoleType;
 import org.example.tm.service.SubjectAreaServiceImpl;
+import org.example.tm.session.SessionService;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -15,13 +17,17 @@ import java.io.IOException;
 import static org.example.tm.command.CommandInfo.DATA_JAXB_XML_LOAD_COMMAND;
 import static org.example.tm.command.CommandInfo.DATA_JAXB_XML_SAVE_COMMAND;
 
+@Component
 public class DataJaxbXmlLoadCommand extends AbstractCommand {
     {
         setRole(RoleType.ADMIN);
     }
 
-    public DataJaxbXmlLoadCommand() {
+    private final SessionService sessionService;
+
+    public DataJaxbXmlLoadCommand(SessionService sessionService) {
         super(true);
+        this.sessionService = sessionService;
     }
 
     @Override
@@ -40,8 +46,8 @@ public class DataJaxbXmlLoadCommand extends AbstractCommand {
         @NotNull final JAXBContext context = JAXBContext.newInstance(SubjectAreaServiceImpl.class);
         @NotNull final Unmarshaller unmarshaller = context.createUnmarshaller();
         @NotNull final ISubjectAreaService subjectAreaService = (ISubjectAreaService) unmarshaller.unmarshal(file);
-        serviceLocator.getSessionService().signOut();
-        subjectAreaService.write(serviceLocator);
+        sessionService.signOut();
+        subjectAreaService.write();
         terminalService.showMessage("DATA LOADED");
         terminalService.showMessage("YOU NEED TO LOGIN AGAIN");
     }

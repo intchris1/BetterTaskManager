@@ -6,9 +6,11 @@ import org.example.tm.baseApp.service.ITaskService;
 import org.example.tm.entity.Task;
 import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class TaskServiceImpl extends AbstractBaseServiceImpl<Task, ITaskRepository> implements ITaskService {
     public TaskServiceImpl(ITaskRepository baseRep) {
         super(baseRep);

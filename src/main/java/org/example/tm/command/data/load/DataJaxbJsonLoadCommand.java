@@ -5,7 +5,9 @@ import org.example.tm.baseApp.service.ISubjectAreaService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.enumeration.RoleType;
 import org.example.tm.service.SubjectAreaServiceImpl;
+import org.example.tm.session.SessionService;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
 import javax.xml.bind.JAXBException;
@@ -16,13 +18,17 @@ import java.io.IOException;
 
 import static org.example.tm.command.CommandInfo.DATA_JAXB_JSON_LOAD_COMMAND;
 
+@Component
 public class DataJaxbJsonLoadCommand extends AbstractCommand {
     {
         setRole(RoleType.ADMIN);
     }
 
-    public DataJaxbJsonLoadCommand() {
+    private final SessionService sessionService;
+
+    public DataJaxbJsonLoadCommand(SessionService sessionService) {
         super(true);
+        this.sessionService = sessionService;
     }
 
     @Override
@@ -45,8 +51,8 @@ public class DataJaxbJsonLoadCommand extends AbstractCommand {
         unmarshaller.setProperty(UnmarshallerProperties.MEDIA_TYPE, "application/json");
         @NotNull final ISubjectAreaService subjectAreaService =
                 unmarshaller.unmarshal(streamSource, SubjectAreaServiceImpl.class).getValue();
-        serviceLocator.getSessionService().signOut();
-        subjectAreaService.write(serviceLocator);
+        sessionService.signOut();
+        subjectAreaService.write();
         terminalService.showMessage("DATA LOADED");
         terminalService.showMessage("YOU NEED TO LOGIN AGAIN");
     }

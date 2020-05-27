@@ -1,17 +1,27 @@
 package org.example.tm.command.project;
 
+import org.example.tm.baseApp.service.IProjectService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.entity.Project;
+import org.example.tm.session.SessionService;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 import static org.example.tm.command.CommandInfo.PROJECT_CREATE_COMMAND;
 
+@Component
 public final class ProjectCreateCommand extends AbstractCommand {
-    public ProjectCreateCommand() {
+
+    private final IProjectService projectService;
+    private final SessionService sessionService;
+
+    public ProjectCreateCommand(IProjectService projectService, SessionService sessionService) {
         super(true);
+        this.projectService = projectService;
+        this.sessionService = sessionService;
     }
 
 
@@ -31,10 +41,10 @@ public final class ProjectCreateCommand extends AbstractCommand {
         terminalService.showMessage("ENTER PROJECT NAME:");
         String name = terminalService.readLine();
         @Nullable final Project project = new Project();
-        @NotNull final String userId = serviceLocator.getSessionService().getCurrentSession().getUser().getId();
+        @NotNull final String userId = sessionService.getCurrentSession().getUser().getId();
         project.setUserId(userId);
         project.setName(name);
-        if (serviceLocator.getProjectService().save(project) != null) {
+        if (projectService.save(project) != null) {
             terminalService.showMessage("[OK]");
         } else terminalService.showMessage("[INVALID NAME OR PROJECT ALREADY EXISTS]");
     }

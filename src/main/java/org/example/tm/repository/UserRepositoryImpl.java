@@ -3,11 +3,13 @@ package org.example.tm.repository;
 import org.example.tm.baseApp.repository.IUserRepository;
 import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+@Component
 public class UserRepositoryImpl extends AbstractBaseRepositoryImpl<User> implements IUserRepository {
 
     @Override

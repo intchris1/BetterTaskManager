@@ -5,17 +5,18 @@ import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.entity.AbstractEntity;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
+import org.springframework.stereotype.Component;
 
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.util.List;
 
-@NoArgsConstructor
+@Component
 public final class TerminalServiceImpl implements ITerminalService {
 
-    private BufferedReader reader;
+    private final BufferedReader reader;
 
-    public TerminalServiceImpl(@NotNull final BufferedReader reader) {
+    public TerminalServiceImpl(BufferedReader reader) {
         this.reader = reader;
     }
 

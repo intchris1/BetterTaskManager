@@ -1,13 +1,23 @@
 package org.example.tm.command.project;
 
+import org.example.tm.baseApp.service.IProjectService;
+import org.example.tm.baseApp.service.ITaskService;
 import org.example.tm.command.AbstractCommand;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import static org.example.tm.command.CommandInfo.PROJECT_CLEAR_COMMAND;
 
+@Component
 public final class ProjectClearCommand extends AbstractCommand {
-    public ProjectClearCommand() {
+
+    private final IProjectService projectService;
+    private final ITaskService taskService;
+
+    public ProjectClearCommand(IProjectService projectService, ITaskService taskService) {
         super(true);
+        this.projectService = projectService;
+        this.taskService = taskService;
     }
 
     @Override
@@ -23,8 +33,8 @@ public final class ProjectClearCommand extends AbstractCommand {
     @Override
     public void execute() {
         terminalService.showMessage("[PROJECT CLEAR]");
-        serviceLocator.getProjectService().removeAll();
-        serviceLocator.getTaskService().removeAll();
+        projectService.removeAll();
+        taskService.removeAll();
         terminalService.showMessage("[OK]");
     }
 }

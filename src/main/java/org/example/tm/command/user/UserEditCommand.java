@@ -1,17 +1,26 @@
 package org.example.tm.command.user;
 
+import org.example.tm.baseApp.service.IUserService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.entity.user.User;
+import org.example.tm.session.SessionService;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 
 import static org.example.tm.command.CommandInfo.USER_EDIT_COMMAND;
 
+@Component
 public final class UserEditCommand extends AbstractCommand {
 
-    public UserEditCommand() {
+    private final IUserService userService;
+    private final SessionService sessionService;
+
+    public UserEditCommand(IUserService userService, SessionService sessionService) {
         super(true);
+        this.userService = userService;
+        this.sessionService = sessionService;
     }
 
     @Override
@@ -26,17 +35,17 @@ public final class UserEditCommand extends AbstractCommand {
 
     @Override
     public void execute() throws IOException {
-        String oldName = serviceLocator.getSessionService().getCurrentSession().getUser().getName();
+        String oldName = sessionService.getCurrentSession().getUser().getName();
         terminalService.showMessage("CURRENT USER NAME: " + oldName);
         terminalService.showMessage("ENTER NEW NAME:");
-        User user = serviceLocator.getUserService().findOneByName(oldName);
+        User user = userService.findOneByName(oldName);
         if (user == null) terminalService.showMessage("USER NOT FOUND OR NAME IS INVALID");
         else {
             terminalService.showMessage("ENTER NEW NAME:");
             String newName = terminalService.readLine();
-            if (serviceLocator.getUserService().findOneByName(newName) == null) {
+            if (userService.findOneByName(newName) == null) {
                 user.setName(newName);
-                if (serviceLocator.getUserService().update(user) != null)
+                if (userService.update(user) != null)
                     terminalService.showMessage("USER WAS EDITED");
             } else terminalService.showMessage("USER ALREADY EXISTS");
         }

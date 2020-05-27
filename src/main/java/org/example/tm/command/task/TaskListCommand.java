@@ -1,18 +1,25 @@
 package org.example.tm.command.task;
 
+import org.example.tm.baseApp.service.ITaskService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.entity.Task;
 import org.example.tm.util.ComparableEntityComparator;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
 
 import static org.example.tm.command.CommandInfo.TASK_LIST_COMMAND;
 
+@Component
 public final class TaskListCommand extends AbstractCommand {
-    public TaskListCommand() {
+
+    private final ITaskService taskService;
+
+    public TaskListCommand(ITaskService taskService) {
         super(true);
+        this.taskService = taskService;
     }
 
 
@@ -32,7 +39,7 @@ public final class TaskListCommand extends AbstractCommand {
                 "(creation-date, start-date, end-date, status)");
         terminalService.showMessage("[TASK LIST]");
         String sortType = terminalService.readLine();
-        List<Task> tasks = serviceLocator.getTaskService().findByUserId();
+        List<Task> tasks = taskService.findByUserId();
         switch (sortType) {
             case "start-date":
                 tasks.sort(ComparableEntityComparator.comparatorStartDate);

@@ -5,9 +5,11 @@ import org.example.tm.baseApp.service.IProjectService;
 import org.example.tm.entity.Project;
 import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Component;
 
 import java.util.List;
 
+@Component
 public class ProjectServiceImpl extends AbstractBaseServiceImpl<Project, IProjectRepository> implements IProjectService {
     public ProjectServiceImpl(IProjectRepository baseR) {
         super(baseR);

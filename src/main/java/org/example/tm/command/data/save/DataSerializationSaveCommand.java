@@ -4,6 +4,9 @@ import org.example.tm.baseApp.service.ISubjectAreaService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.enumeration.RoleType;
 import org.jetbrains.annotations.NotNull;
+import org.springframework.beans.factory.BeanFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -12,11 +15,16 @@ import java.io.ObjectOutputStream;
 
 import static org.example.tm.command.CommandInfo.DATA_SER_SAVE_COMMAND;
 
+
+@Component
 public class DataSerializationSaveCommand extends AbstractCommand {
 
     {
         setRole(RoleType.ADMIN);
     }
+
+    @Autowired
+    BeanFactory beanFactory;
 
     public DataSerializationSaveCommand() {
         super(true);
@@ -34,8 +42,8 @@ public class DataSerializationSaveCommand extends AbstractCommand {
 
     @Override
     public void execute() throws IOException {
-        @NotNull final ISubjectAreaService subjectAreaService = serviceLocator.getSubjectAreaService();
-        subjectAreaService.read(serviceLocator);
+        @NotNull final ISubjectAreaService subjectAreaService = beanFactory.getBean(ISubjectAreaService.class);
+        subjectAreaService.read();
         @NotNull final File folder = new File("data");
         if (!folder.exists()) folder.mkdir();
         @NotNull final FileOutputStream fos = new FileOutputStream("data/data.bin");
