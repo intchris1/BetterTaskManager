@@ -1,6 +1,15 @@
 package org.example.tm.baseApp.repository;
 
-import org.example.tm.entity.user.User;
+import org.example.tm.entity.User;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface IUserRepository extends IBaseRepository<User> {
+@Repository
+public interface IUserRepository extends JpaRepository<User, String> {
+
+    @NotNull User findByName(@NotNull String name);
+
+    boolean existsByName(@NotNull String name);
 }
