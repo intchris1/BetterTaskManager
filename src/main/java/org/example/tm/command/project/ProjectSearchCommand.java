@@ -1,12 +1,13 @@
 package org.example.tm.command.project;
 
 import org.example.tm.baseApp.service.IProjectService;
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.entity.Project;
+import org.example.tm.session.SessionService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
-import java.io.IOException;
 import java.util.List;
 
 import static org.example.tm.command.CommandInfo.PROJECT_SEARCH_COMMAND;
@@ -15,10 +16,12 @@ import static org.example.tm.command.CommandInfo.PROJECT_SEARCH_COMMAND;
 public class ProjectSearchCommand extends AbstractCommand {
 
     private final IProjectService projectService;
+    private final SessionService sessionService;
 
-    public ProjectSearchCommand(IProjectService projectService) {
-        super(true);
+    public ProjectSearchCommand(ITerminalService terminalService, IProjectService projectService, SessionService sessionService) {
+        super(terminalService, true);
         this.projectService = projectService;
+        this.sessionService = sessionService;
     }
 
     @Override
@@ -32,12 +35,12 @@ public class ProjectSearchCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws IOException {
-        terminalService.showMessage("ENTER PART OF NAME OR DESCRIPTION:");
+    public void execute() throws Exception {
+        terminalService.showMessage("[ENTER PART OF NAME OR DESCRIPTION: ]");
         @NotNull final String searchString = terminalService.readLine();
-        @NotNull final List<Project> foundProjectList = projectService.
-                findByPart(searchString);
-        terminalService.showMessage("[LIST OF FOUND PROJECTS:]");
+        @NotNull final String userId = sessionService.getCurrentSession().getUser().getId();
+        @NotNull final List<Project> foundProjectList = projectService.searchByPart(userId, searchString);
+        terminalService.showMessage("[LIST OF FOUND PROJECTS: ]");
         terminalService.printList(foundProjectList);
     }
 }

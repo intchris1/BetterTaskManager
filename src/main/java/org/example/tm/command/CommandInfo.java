@@ -19,6 +19,7 @@ public enum CommandInfo {
     PROJECT_REMOVE_COMMAND("project-remove", "Удалить проект"),
     PROJECT_SORT_COMMAND("project-sort", "Отсортировать список проектов"),
     PROJECT_SEARCH_COMMAND("project-search", "Поиск проектов по части имени или описания"),
+    TASK_ATTACH_COMMAND("task-attach", "Прикрепить задачу к проекту"),
     TASK_CLEAR_COMMAND("task-clear", "Очистить все задачи"),
     TASK_CREATE_COMMAND("task-create", "Создать задачу"),
     TASK_EDIT_COMMAND("task-edit", "Редактировать задачу"),

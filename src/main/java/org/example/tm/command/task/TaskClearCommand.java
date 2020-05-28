@@ -1,7 +1,9 @@
 package org.example.tm.command.task;
 
 import org.example.tm.baseApp.service.ITaskService;
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
+import org.example.tm.session.SessionService;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +13,12 @@ import static org.example.tm.command.CommandInfo.TASK_CLEAR_COMMAND;
 public final class TaskClearCommand extends AbstractCommand {
 
     private final ITaskService taskService;
+    private final SessionService sessionService;
 
-    public TaskClearCommand(ITaskService taskService) {
-        super(true);
+    public TaskClearCommand(ITerminalService terminalService, ITaskService taskService, SessionService sessionService) {
+        super(terminalService, true);
         this.taskService = taskService;
+        this.sessionService = sessionService;
     }
 
     @Override
@@ -29,7 +33,8 @@ public final class TaskClearCommand extends AbstractCommand {
 
     @Override
     public void execute() {
-        taskService.removeAll();
-        terminalService.showMessage("ALL TASKS WERE REMOVED");
+        terminalService.showMessage("[TASK CLEAR]");
+        taskService.deleteAllByUserId(sessionService.getCurrentSession().getUser().getId());
+        terminalService.showMessage("[ALL TASKS WERE REMOVED]");
     }
 }

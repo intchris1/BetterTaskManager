@@ -3,6 +3,7 @@ package org.example.tm.command.data.load;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.example.tm.baseApp.service.ISubjectAreaService;
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.enumeration.RoleType;
 import org.example.tm.service.SubjectAreaServiceImpl;
@@ -19,7 +20,7 @@ import java.text.SimpleDateFormat;
 import static org.example.tm.command.CommandInfo.DATA_FASTERXML_JSON_LOAD_COMMAND;
 
 @Component
-public class DataFasterxmlJsonLoadCommand extends AbstractCommand {
+public final class DataFasterxmlJsonLoadCommand extends AbstractCommand {
 
     {
         setRole(RoleType.ADMIN);
@@ -27,8 +28,8 @@ public class DataFasterxmlJsonLoadCommand extends AbstractCommand {
 
     private final SessionService sessionService;
 
-    public DataFasterxmlJsonLoadCommand(SessionService sessionService) {
-        super(true);
+    public DataFasterxmlJsonLoadCommand(ITerminalService terminalService, SessionService sessionService) {
+        super(terminalService, true);
         this.sessionService = sessionService;
     }
 
@@ -43,7 +44,7 @@ public class DataFasterxmlJsonLoadCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws IOException, ClassNotFoundException, JAXBException {
+    public void execute() throws IOException {
         @NotNull final File file = new File("data/fasterxml.json");
         @NotNull final ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);

@@ -1,17 +1,9 @@
 package org.example.tm.baseApp.repository;
 
 import org.example.tm.entity.Project;
-import org.example.tm.entity.user.User;
-import org.jetbrains.annotations.NotNull;
+import org.springframework.stereotype.Repository;
 
-import java.util.List;
+@Repository
+public interface IProjectRepository extends IUsersEntityRepository<Project> {
 
-public interface IProjectRepository extends IBaseRepository<Project> {
-
-    void setUser(User user);
-
-    @NotNull List<Project> findByPart(@NotNull String searchString);
-
-    @NotNull
-    List<Project> findByUserId();
 }

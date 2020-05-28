@@ -1,9 +1,11 @@
 package org.example.tm.command.user;
 
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.session.Session;
 import org.example.tm.session.SessionService;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Component;
 
 import java.io.IOException;
@@ -15,8 +17,8 @@ public final class UserLoginCommand extends AbstractCommand {
 
     private final SessionService sessionService;
 
-    public UserLoginCommand(SessionService sessionService) {
-        super(false);
+    public UserLoginCommand(ITerminalService terminalService, SessionService sessionService) {
+        super(terminalService, false);
         this.sessionService = sessionService;
     }
 
@@ -37,13 +39,11 @@ public final class UserLoginCommand extends AbstractCommand {
             terminalService.showMessage("YOU NEED TO SIGN OUT FIRST");
             return;
         }
-        terminalService.showMessage("ENTER USER NAME:");
-        String login = terminalService.readLine();
-        terminalService.showMessage("ENTER PASSWORD:");
-        String password = terminalService.readLine();
+        terminalService.showMessage("[ENTER USER NAME: ]");
+        @Nullable final String login = terminalService.readLine();
+        terminalService.showMessage("[ENTER PASSWORD: ]");
+        @Nullable final String password = terminalService.readLine();
         Session session = sessionService.open(login, password);
-        if (session != null) {
-            terminalService.showMessage("SUCCESSFULLY LOGGED IN");
-        } else terminalService.showMessage("USER NOT FOUND OR PASSWORD IS INVALID");
+        terminalService.showMessage(session != null ? "SUCCESSFULLY LOGGED IN" : "USER NOT FOUND OR PASSWORD IS INVALID");
     }
 }

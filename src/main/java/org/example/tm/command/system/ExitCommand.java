@@ -1,5 +1,6 @@
 package org.example.tm.command.system;
 
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.stereotype.Component;
@@ -8,8 +9,8 @@ import static org.example.tm.command.CommandInfo.EXIT_COMMAND;
 
 @Component
 public final class ExitCommand extends AbstractCommand {
-    public ExitCommand() {
-        super(false);
+    public ExitCommand(ITerminalService terminalService) {
+        super(terminalService, false);
     }
 
     @Override

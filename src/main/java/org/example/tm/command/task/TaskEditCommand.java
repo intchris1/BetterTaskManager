@@ -1,12 +1,12 @@
 package org.example.tm.command.task;
 
 import org.example.tm.baseApp.service.ITaskService;
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
-import org.example.tm.entity.Task;
+import org.example.tm.session.SessionService;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 
 import static org.example.tm.command.CommandInfo.TASK_EDIT_COMMAND;
 
@@ -14,10 +14,12 @@ import static org.example.tm.command.CommandInfo.TASK_EDIT_COMMAND;
 public final class TaskEditCommand extends AbstractCommand {
 
     private final ITaskService taskService;
+    private final SessionService sessionService;
 
-    public TaskEditCommand(ITaskService taskService) {
-        super(true);
+    public TaskEditCommand(ITerminalService terminalService, ITaskService taskService, SessionService sessionService) {
+        super(terminalService, true);
         this.taskService = taskService;
+        this.sessionService = sessionService;
     }
 
 
@@ -32,18 +34,13 @@ public final class TaskEditCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws IOException {
-        terminalService.showMessage("ENTER TASK NAME FOR EDITING:");
-        String oldName = terminalService.readLine();
-        Task task = taskService.findOneByName(oldName);
-        if (task == null) terminalService.showMessage("TASK NOT FOUND OR NAME IS INVALID");
-        else {
-            terminalService.showMessage("ENTER NEW NAME:");
-            String newName = terminalService.readLine();
-            task.setName(newName);
-            if (taskService.update(task) != null)
-                terminalService.showMessage("TASK WAS EDITED");
-            else terminalService.showMessage("TASK ALREADY EXISTS");
-        }
+    public void execute() throws Exception {
+        terminalService.showMessage("[ENTER TASK NAME FOR EDITING: ]");
+        @Nullable final String oldName = terminalService.readLine();
+        terminalService.showMessage("[ENTER NEW TASK NAME: ]");
+        @Nullable final String newName = terminalService.readLine();
+        @NotNull final String userId = sessionService.getCurrentSession().getUser().getId();
+        taskService.updateName(userId, oldName, newName);
+        terminalService.showMessage("[TASK " + oldName + " WAS EDITED, NEW NAME: " + newName + "]");
     }
 }

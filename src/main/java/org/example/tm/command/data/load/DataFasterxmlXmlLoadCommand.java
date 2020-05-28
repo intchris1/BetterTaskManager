@@ -3,6 +3,7 @@ package org.example.tm.command.data.load;
 import com.fasterxml.jackson.databind.DeserializationFeature;
 import com.fasterxml.jackson.dataformat.xml.XmlMapper;
 import org.example.tm.baseApp.service.ISubjectAreaService;
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.enumeration.RoleType;
 import org.example.tm.service.SubjectAreaServiceImpl;
@@ -19,7 +20,7 @@ import java.text.SimpleDateFormat;
 import static org.example.tm.command.CommandInfo.DATA_FASTERXML_XML_LOAD_COMMAND;
 
 @Component
-public class DataFasterxmlXmlLoadCommand extends AbstractCommand {
+public final class DataFasterxmlXmlLoadCommand extends AbstractCommand {
 
     {
         setRole(RoleType.ADMIN);
@@ -27,8 +28,8 @@ public class DataFasterxmlXmlLoadCommand extends AbstractCommand {
 
     private final SessionService sessionService;
 
-    public DataFasterxmlXmlLoadCommand(SessionService sessionService) {
-        super(true);
+    public DataFasterxmlXmlLoadCommand(ITerminalService terminalService, SessionService sessionService) {
+        super(terminalService, true);
         this.sessionService = sessionService;
     }
 
@@ -43,7 +44,7 @@ public class DataFasterxmlXmlLoadCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws IOException, ClassNotFoundException, JAXBException {
+    public void execute() throws IOException {
         @NotNull final File file = new File("data/fasterxml.xml");
         @NotNull final XmlMapper xmlMapper = new XmlMapper();
         xmlMapper.disable(DeserializationFeature.FAIL_ON_UNKNOWN_PROPERTIES);

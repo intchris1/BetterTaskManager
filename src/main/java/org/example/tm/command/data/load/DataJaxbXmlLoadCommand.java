@@ -1,6 +1,7 @@
 package org.example.tm.command.data.load;
 
 import org.example.tm.baseApp.service.ISubjectAreaService;
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.enumeration.RoleType;
 import org.example.tm.service.SubjectAreaServiceImpl;
@@ -18,15 +19,15 @@ import static org.example.tm.command.CommandInfo.DATA_JAXB_XML_LOAD_COMMAND;
 import static org.example.tm.command.CommandInfo.DATA_JAXB_XML_SAVE_COMMAND;
 
 @Component
-public class DataJaxbXmlLoadCommand extends AbstractCommand {
+public final class DataJaxbXmlLoadCommand extends AbstractCommand {
     {
         setRole(RoleType.ADMIN);
     }
 
     private final SessionService sessionService;
 
-    public DataJaxbXmlLoadCommand(SessionService sessionService) {
-        super(true);
+    public DataJaxbXmlLoadCommand(ITerminalService terminalService, SessionService sessionService) {
+        super(terminalService, true);
         this.sessionService = sessionService;
     }
 
@@ -41,7 +42,7 @@ public class DataJaxbXmlLoadCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws IOException, ClassNotFoundException, JAXBException {
+    public void execute() throws JAXBException {
         @NotNull final File file = new File("data/jaxb.xml");
         @NotNull final JAXBContext context = JAXBContext.newInstance(SubjectAreaServiceImpl.class);
         @NotNull final Unmarshaller unmarshaller = context.createUnmarshaller();

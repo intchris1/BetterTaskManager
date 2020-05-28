@@ -1,6 +1,7 @@
 package org.example.tm.command.data.load;
 
 import org.example.tm.baseApp.service.ISubjectAreaService;
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.enumeration.RoleType;
 import org.example.tm.session.SessionService;
@@ -14,7 +15,7 @@ import java.io.ObjectInputStream;
 import static org.example.tm.command.CommandInfo.DATA_SER_LOAD_COMMAND;
 
 @Component
-public class DataSerializationLoadCommand extends AbstractCommand {
+public final class DataSerializationLoadCommand extends AbstractCommand {
 
     {
         setRole(RoleType.ADMIN);
@@ -22,8 +23,8 @@ public class DataSerializationLoadCommand extends AbstractCommand {
 
     private final SessionService sessionService;
 
-    public DataSerializationLoadCommand(SessionService sessionService) {
-        super(true);
+    public DataSerializationLoadCommand(ITerminalService terminalService, SessionService sessionService) {
+        super(terminalService, true);
         this.sessionService = sessionService;
     }
 
