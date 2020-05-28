@@ -43,8 +43,7 @@ public final class TaskAttachCommand extends AbstractCommand {
         terminalService.showMessage("[ENTER PROJECT NAME:]");
         @Nullable final String projectName = terminalService.readLine();
         @NotNull final Project project = projectService.findByName(userId, projectName);
-        taskService.findByName(userId, name).setProjectId(project.getId());
-        //будет работать без сейв?
+        taskService.attachTask(userId, name, project.getId());
         terminalService.showMessage("[TASK " + name + " WAS ATTACHED TO PROJECT " + projectName + " ]");
     }
 }
