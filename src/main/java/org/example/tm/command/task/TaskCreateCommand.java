@@ -41,6 +41,7 @@ public final class TaskCreateCommand extends AbstractCommand {
         @Nullable final String name = terminalService.readLine();
         @NotNull final String userId = sessionService.getCurrentSession().getUser().getId();
         taskService.createNewEntity(new Task(), userId, name);
+        terminalService.showMessage("[TASK WITH NAME " + name + " CREATED]");
 
     }
 }
