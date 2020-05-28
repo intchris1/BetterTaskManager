@@ -1,11 +1,11 @@
 package org.example.tm.command.data.save;
 
 import org.example.tm.baseApp.service.ISubjectAreaService;
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.enumeration.RoleType;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.io.File;
@@ -17,17 +17,16 @@ import static org.example.tm.command.CommandInfo.DATA_SER_SAVE_COMMAND;
 
 
 @Component
-public class DataSerializationSaveCommand extends AbstractCommand {
+public final class DataSerializationSaveCommand extends AbstractCommand {
 
     {
         setRole(RoleType.ADMIN);
     }
 
-    @Autowired
     private final BeanFactory beanFactory;
 
-    public DataSerializationSaveCommand(BeanFactory beanFactory) {
-        super(true);
+    public DataSerializationSaveCommand(ITerminalService terminalService, BeanFactory beanFactory) {
+        super(terminalService, true);
         this.beanFactory = beanFactory;
     }
 

@@ -2,6 +2,7 @@ package org.example.tm.command.data.load;
 
 import org.eclipse.persistence.jaxb.UnmarshallerProperties;
 import org.example.tm.baseApp.service.ISubjectAreaService;
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.enumeration.RoleType;
 import org.example.tm.service.SubjectAreaServiceImpl;
@@ -19,15 +20,15 @@ import java.io.IOException;
 import static org.example.tm.command.CommandInfo.DATA_JAXB_JSON_LOAD_COMMAND;
 
 @Component
-public class DataJaxbJsonLoadCommand extends AbstractCommand {
+public final class DataJaxbJsonLoadCommand extends AbstractCommand {
     {
         setRole(RoleType.ADMIN);
     }
 
     private final SessionService sessionService;
 
-    public DataJaxbJsonLoadCommand(SessionService sessionService) {
-        super(true);
+    public DataJaxbJsonLoadCommand(ITerminalService terminalService, SessionService sessionService) {
+        super(terminalService, true);
         this.sessionService = sessionService;
     }
 
@@ -42,7 +43,7 @@ public class DataJaxbJsonLoadCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws IOException, ClassNotFoundException, JAXBException {
+    public void execute() throws JAXBException {
         System.setProperty("javax.xml.bind.context.factory", "org.eclipse.persistence.jaxb.JAXBContextFactory");
         @NotNull final File file = new File("data/jaxb.json");
         @NotNull final StreamSource streamSource = new StreamSource(file);

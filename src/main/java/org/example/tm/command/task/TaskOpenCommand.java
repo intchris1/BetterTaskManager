@@ -1,12 +1,13 @@
 package org.example.tm.command.task;
 
 import org.example.tm.baseApp.service.ITaskService;
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.entity.Task;
+import org.example.tm.session.SessionService;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 
 import static org.example.tm.command.CommandInfo.TASK_OPEN_COMMAND;
 
@@ -14,10 +15,12 @@ import static org.example.tm.command.CommandInfo.TASK_OPEN_COMMAND;
 public final class TaskOpenCommand extends AbstractCommand {
 
     private final ITaskService taskService;
+    private final SessionService sessionService;
 
-    public TaskOpenCommand(ITaskService taskService) {
-        super(true);
+    public TaskOpenCommand(ITerminalService terminalService, ITaskService taskService, SessionService sessionService) {
+        super(terminalService, true);
         this.taskService = taskService;
+        this.sessionService = sessionService;
     }
 
     @Override
@@ -31,13 +34,12 @@ public final class TaskOpenCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws IOException {
-        terminalService.showMessage("ENTER TASK NAME TO OPEN:");
-        String name = terminalService.readLine();
-        Task task = taskService.findOneByName(name);
-        if (task == null) terminalService.showMessage("TASK NOT FOUND");
+    public void execute() throws Exception {
+        terminalService.showMessage("[ENTER TASK NAME TO OPEN: ]");
+        @Nullable final String name = terminalService.readLine();
+        @NotNull final String userId = sessionService.getCurrentSession().getUser().getId();
+        @NotNull final Task task = taskService.findByName(userId, name);
+        terminalService.showMessage(task.toString());
 
-
-        else terminalService.showMessage(task.toString());
     }
 }

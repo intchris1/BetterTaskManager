@@ -11,9 +11,8 @@ import org.example.tm.baseApp.service.ITaskService;
 import org.example.tm.baseApp.service.IUserService;
 import org.example.tm.entity.Project;
 import org.example.tm.entity.Task;
-import org.example.tm.entity.user.User;
+import org.example.tm.entity.User;
 import org.jetbrains.annotations.Nullable;
-import org.springframework.stereotype.Component;
 
 import javax.xml.bind.annotation.*;
 import java.io.Serializable;
@@ -62,9 +61,9 @@ public class SubjectAreaServiceImpl implements ISubjectAreaService, Serializable
 
 
     public void write() {
-        if (projectList != null) projectService.save(projectList);
-        if (taskList != null) taskService.save(taskList);
-        if (userList != null) userService.save(userList);
+        if (projectList != null) projectService.saveAll(projectList);
+        if (taskList != null) taskService.saveAll(taskList);
+        if (userList != null) userService.saveAll(userList);
     }
 
     public void read() {

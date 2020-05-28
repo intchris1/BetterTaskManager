@@ -1,5 +1,6 @@
 package org.example.tm.command.user;
 
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.session.SessionService;
 import org.jetbrains.annotations.NotNull;
@@ -12,8 +13,8 @@ public final class UserLogoutCommand extends AbstractCommand {
 
     private final SessionService sessionService;
 
-    public UserLogoutCommand(SessionService sessionService) {
-        super(true);
+    public UserLogoutCommand(ITerminalService terminalService, SessionService sessionService) {
+        super(terminalService, true);
         this.sessionService = sessionService;
     }
 
@@ -31,6 +32,6 @@ public final class UserLogoutCommand extends AbstractCommand {
     @Override
     public void execute() {
         sessionService.signOut();
-        terminalService.showMessage("LOGGED OUT");
+        terminalService.showMessage("[LOGGED OUT]");
     }
 }

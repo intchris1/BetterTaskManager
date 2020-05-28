@@ -1,5 +1,6 @@
 package org.example.tm.command.system;
 
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.command.CommandInfo;
 import org.jetbrains.annotations.NotNull;
@@ -9,8 +10,8 @@ import static org.example.tm.command.CommandInfo.HELP_COMMAND;
 
 @Component
 public final class HelpCommand extends AbstractCommand {
-    public HelpCommand() {
-        super(false);
+    public HelpCommand(ITerminalService terminalService) {
+        super(terminalService, false);
     }
 
 

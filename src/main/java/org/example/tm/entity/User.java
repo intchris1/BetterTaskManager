@@ -1,14 +1,16 @@
-package org.example.tm.entity.user;
+package org.example.tm.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.example.tm.entity.AbstractEntity;
 import org.example.tm.enumeration.RoleType;
 import org.jetbrains.annotations.NotNull;
 
+import javax.persistence.Entity;
+
 @Getter
 @Setter
+@Entity
 @NoArgsConstructor
 public class User extends AbstractEntity {
     @NotNull

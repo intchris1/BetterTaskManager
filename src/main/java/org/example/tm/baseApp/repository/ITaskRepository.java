@@ -1,23 +1,16 @@
 package org.example.tm.baseApp.repository;
 
 import org.example.tm.entity.Task;
-import org.example.tm.entity.user.User;
 import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-public interface ITaskRepository extends IBaseRepository<Task> {
+@Repository
+public interface ITaskRepository extends IUsersEntityRepository<Task> {
 
-    void setUser(@Nullable User user);
+    @NotNull List<Task> findAllByUserIdAndProjectId(@NotNull String userId, @NotNull String projectId);
 
-    void removeByProjectId(@NotNull String projectId);
+    void deleteAllByUserIdAndProjectId(@NotNull String userId, @NotNull String projectId);
 
-    @NotNull
-    List<Task> getByProjectId(@NotNull String projectId);
-
-    @NotNull List<Task> findByPart(@NotNull String searchString);
-
-    @NotNull
-    List<Task> findByUserId();
 }

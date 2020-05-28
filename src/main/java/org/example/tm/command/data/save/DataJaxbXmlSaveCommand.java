@@ -1,12 +1,12 @@
 package org.example.tm.command.data.save;
 
 import org.example.tm.baseApp.service.ISubjectAreaService;
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
 import org.example.tm.enumeration.RoleType;
 import org.example.tm.service.SubjectAreaServiceImpl;
 import org.jetbrains.annotations.NotNull;
 import org.springframework.beans.factory.BeanFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import javax.xml.bind.JAXBContext;
@@ -19,17 +19,16 @@ import static org.example.tm.command.CommandInfo.DATA_JAXB_XML_SAVE_COMMAND;
 
 
 @Component
-public class DataJaxbXmlSaveCommand extends AbstractCommand {
+public final class DataJaxbXmlSaveCommand extends AbstractCommand {
 
     {
         setRole(RoleType.ADMIN);
     }
 
-    @Autowired
     private final BeanFactory beanFactory;
 
-    public DataJaxbXmlSaveCommand(BeanFactory beanFactory) {
-        super(true);
+    public DataJaxbXmlSaveCommand(ITerminalService terminalService, BeanFactory beanFactory) {
+        super(terminalService, true);
         this.beanFactory = beanFactory;
     }
 
@@ -44,7 +43,7 @@ public class DataJaxbXmlSaveCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws IOException, ClassNotFoundException, JAXBException {
+    public void execute() throws JAXBException {
         @NotNull final ISubjectAreaService subjectAreaService = beanFactory.getBean(ISubjectAreaService.class);
         subjectAreaService.read();
         @NotNull final File folder = new File("data");

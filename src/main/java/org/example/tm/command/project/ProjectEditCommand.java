@@ -1,12 +1,12 @@
 package org.example.tm.command.project;
 
 import org.example.tm.baseApp.service.IProjectService;
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
-import org.example.tm.entity.Project;
+import org.example.tm.session.SessionService;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 
 import static org.example.tm.command.CommandInfo.PROJECT_EDIT_COMMAND;
 
@@ -14,11 +14,12 @@ import static org.example.tm.command.CommandInfo.PROJECT_EDIT_COMMAND;
 public final class ProjectEditCommand extends AbstractCommand {
 
     private final IProjectService projectService;
+    private final SessionService sessionService;
 
-
-    public ProjectEditCommand(IProjectService projectService) {
-        super(true);
+    public ProjectEditCommand(SessionService sessionService, ITerminalService terminalService, IProjectService projectService) {
+        super(terminalService, true);
         this.projectService = projectService;
+        this.sessionService = sessionService;
     }
 
     @Override
@@ -32,19 +33,13 @@ public final class ProjectEditCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws IOException {
-        terminalService.showMessage("ENTER PROJECT NAME FOR EDITING:");
-        String oldName = terminalService.readLine();
-        Project project = projectService.findOneByName(oldName);
-        if (project == null) terminalService.showMessage("PROJECT NOT FOUND OR NAME IS INVALID");
-        else {
-            terminalService.showMessage("ENTER NEW NAME:");
-            String newName = terminalService.readLine();
-            if (projectService.findOneByName(newName) == null) {
-                project.setName(newName);
-                if (projectService.update(project) != null)
-                    terminalService.showMessage("PROJECT WAS EDITED");
-            } else terminalService.showMessage("PROJECT ALREADY EXISTS");
-        }
+    public void execute() throws Exception {
+        terminalService.showMessage("[ENTER PROJECT NAME FOR EDITING: ]");
+        @Nullable final String oldName = terminalService.readLine();
+        terminalService.showMessage("[ENTER NEW PROJECT NAME: ]");
+        @Nullable final String newName = terminalService.readLine();
+        @NotNull final String userId = sessionService.getCurrentSession().getUser().getId();
+        projectService.updateName(userId, oldName, newName);
+        terminalService.showMessage("[PROJECT " + oldName + " WAS EDITED, NEW NAME: " + newName + "]");
     }
 }

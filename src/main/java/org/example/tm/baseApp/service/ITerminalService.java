@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.util.List;
 
 public interface ITerminalService {
+
     void showMessage(@NotNull final String message);
 
     @NotNull

@@ -1,12 +1,12 @@
 package org.example.tm.command.task;
 
 import org.example.tm.baseApp.service.ITaskService;
+import org.example.tm.baseApp.service.ITerminalService;
 import org.example.tm.command.AbstractCommand;
-import org.example.tm.entity.Task;
+import org.example.tm.session.SessionService;
 import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
 import org.springframework.stereotype.Component;
-
-import java.io.IOException;
 
 import static org.example.tm.command.CommandInfo.TASK_REMOVE_COMMAND;
 
@@ -15,10 +15,12 @@ import static org.example.tm.command.CommandInfo.TASK_REMOVE_COMMAND;
 public final class TaskRemoveCommand extends AbstractCommand {
 
     private final ITaskService taskService;
+    private final SessionService sessionService;
 
-    public TaskRemoveCommand(ITaskService taskService) {
-        super(true);
+    public TaskRemoveCommand(ITerminalService terminalService, ITaskService taskService, SessionService sessionService) {
+        super(terminalService, true);
         this.taskService = taskService;
+        this.sessionService = sessionService;
     }
 
 
@@ -33,14 +35,11 @@ public final class TaskRemoveCommand extends AbstractCommand {
     }
 
     @Override
-    public void execute() throws IOException {
-        terminalService.showMessage("ENTER TASK NAME TO DELETE");
-        String name = terminalService.readLine();
-        Task task = taskService.findOneByName(name);
-        if (task == null) terminalService.showMessage("NO SUCH TASK");
-        else {
-            taskService.remove(task);
-            terminalService.showMessage("TASK WAS DELETED");
-        }
+    public void execute() throws Exception {
+        terminalService.showMessage("[ENTER TASK NAME TO DELETE: ]");
+        @Nullable final String name = terminalService.readLine();
+        @NotNull final String userId = sessionService.getCurrentSession().getUser().getId();
+        taskService.deleteByName(userId, name);
+        terminalService.showMessage("[TASK WAS DELETED]");
     }
 }
